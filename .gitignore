@@ -37,3 +37,7 @@ package-lock.json
 
 # typescript generated file
 src/react-app-env.d.ts
+
+
+#secret
+/src/core/authProvider.js
