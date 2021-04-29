@@ -1,0 +1,56 @@
+{
+  "status": 200,
+  "statusText": "OK",
+  "data":
+  {
+  "status": true,
+  "code": 200,
+  "data": {
+    "id": 24638,
+    "orderdetail_id": 24638,
+    "isdeleted": false,
+    "iseditable": true,
+    "createuserid": 8155,
+    "createdate": "2021-04-20 15:07:17",
+    "updateuserid": null,
+    "deleteddate": null,
+    "updatedate": "2021-04-20 15:07:17",
+    "qty": 7,
+    "saleprice": 1370000,
+    "saleamount": 9590000,
+    "discount": 95,
+    "netprice": 479500,
+    "itemname": "دلسي کوارتر بک ترولي کوله لپ تاپي کابين 197650",
+    "itemdesc": "تعداد=7",
+    "qtyclone": 14,
+    "avttest": 0,
+    "testparameterparent": null,
+    "order_id": 214000001266,
+    "product_id": 29940,
+    "dropparentparameter": null,
+    "__order_id_value": 214000001266,
+    "__order_id_link": "/webtest/order/214000001266",
+    "__product_id_value": "دلسي کوارتر بک ترولي کوله لپ تاپي کابين 197650",
+    "__product_id_link": "/webtest/product/29940",
+    "__testparameterparent_value": null,
+    "__testparameterparent_link": null,
+    "__dropparentparameter_value": null,
+    "__dropparentparameter_link": null,
+    "__createuserid_value": "Pls Do not Delete WebTest",
+    "__createuserid_link": "/person/personinfo/8155",
+    "__updateuserid_value": null,
+    "__updateuserid_link": null
+  },
+  "additionalData": {
+    "exceptions": {}
+  },
+  "userMessage": null,
+  "developerMessage": null,
+  "totalCount": 0,
+  "messageType": "ok",
+  "messageSound": null,
+  "metaVersion": "v2_bmvd-d6_1618905008_b",
+  "requestId": "0HM83Q2HI2EEG:00000011",
+  "actionOutput": {}
+}
+}
