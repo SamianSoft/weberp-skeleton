@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico"> -->
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link lazyload rel="stylesheet" href="%PUBLIC_URL%/assets/icon/material-icon/icon.css" />
+    <link lazyload rel="stylesheet" href="%PUBLIC_URL%/assets/icon/font-awesome/css/all.css" />
+    <link lazyload rel="stylesheet" type="text/css" href="%PUBLIC_URL%/assets/css/dx.common.css" />
+    <link lazyload rel="stylesheet" type="text/css" href="%PUBLIC_URL%/assets/css/dx.light.css"/>
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>iMaster</title>
+    <style>
+      ::-webkit-scrollbar {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar:vertical {
+        width: 6px;
+      }
+
+      ::-webkit-scrollbar:horizontal {
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #BDBDBD;
+        border-radius: 4px;
+      }
+
+      @font-face {
+        font-family: WebErpFont;
+        font-style: normal;
+        font-weight: 900;
+        src: url('./font/eot/IRANSansWeb_Black.eot');
+        src: url('./font/eot/IRANSansWeb_Black.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+        url('./font/woff2/IRANSansWeb_Black.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+        url('./font/woff/IRANSansWeb_Black.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url('./font/ttf/IRANSansWeb_Black.ttf') format('truetype');
+      }
+
+      @font-face {
+        font-family: WebErpFont;
+        font-style: normal;
+        font-weight: 700;
+        src: url('./font/eot/IRANSansWeb_Bold.eot');
+        src: url('./font/eot/IRANSansWeb_Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+        url('./font/woff2/IRANSansWeb_Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+        url('./font/woff/IRANSansWeb_Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url('./font/ttf/IRANSansWeb_Bold.ttf') format('truetype');
+      }
+
+      @font-face {
+        font-family: WebErpFont;
+        font-style: normal;
+        font-weight: 500;
+        src: url('./font/eot/IRANSansWeb_Medium.eot');
+        src: url('./font/eot/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+        url('./font/woff2/IRANSansWeb_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+        url('./font/woff/IRANSansWeb_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url('./font/ttf/IRANSansWeb_Medium.ttf') format('truetype');
+      }
+
+      @font-face {
+        font-family: WebErpFont;
+        font-style: normal;
+        font-weight: 400;
+        src: url('./font/eot/IRANSansWeb.eot');
+        src: url('./font/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+        url('./font/woff2/IRANSansWeb.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+        url('./font/woff/IRANSansWeb.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url('./font/ttf/IRANSansWeb.ttf') format('truetype');
+      }
+
+      @font-face {
+        font-family: WebErpFont;
+        font-style: normal;
+        font-weight: 300;
+        src: url('./font/eot/IRANSansWeb_Light.eot');
+        src: url('./font/eot/IRANSansWeb_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+        url('./font/woff2/IRANSansWeb_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+        url('./font/woff/IRANSansWeb_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url('./font/ttf/IRANSansWeb_Light.ttf') format('truetype');
+      }
+
+      @font-face {
+        font-family: WebErpFont;
+        font-style: normal;
+        font-weight: 200;
+        src: url('./font/eot/IRANSansWeb_UltraLight.eot');
+        src: url('./font/eot/IRANSansWeb_UltraLight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+        url('./font/woff2/IRANSansWeb_UltraLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+        url('./font/woff/IRANSansWeb_UltraLight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url('./font/ttf/IRANSansWeb_UltraLight.ttf') format('truetype');
+      }
+
+    </style>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root" tabindex="1"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
