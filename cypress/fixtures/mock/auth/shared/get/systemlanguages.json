@@ -1,0 +1,21 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "keyword": "fa",
+      "title": "فارسي",
+      "textDirection": "rtl"
+    },
+    {
+      "keyword": "en",
+      "title": "لاتين",
+      "textDirection": "ltr"
+    },
+    {
+      "keyword": "ar",
+      "title": "عربي",
+      "textDirection": "rtl"
+    }
+  ],
+  "totalCount": 0
+}

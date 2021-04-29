@@ -1,0 +1,161 @@
+{
+  "code": 200,
+  "data": {
+    "address": null,
+    "displayName": "Pls Do not Delete WebTest",
+    "firstName": "Pls Do not Delete",
+    "lastName": "WebTest",
+    "email": null,
+    "phoneNumber": null,
+    "userName": "WebTest",
+    "photoFilePath": "filesuploaded/company_1/person_personinfo_8155_2c10ed8cf160d841ad78fdad612c0080.png",
+    "userCompanies": [
+      {
+        "isActive": true,
+        "title": "lite 21",
+        "id": 1,
+        "photoFilePath": "",
+        "address": ""
+      }
+    ],
+    "globalParameters": {
+      "currentUserID": "8155",
+      "currentUserName": "WebTest Pls Do not Delete",
+      "currentDate": "convert(varchar(max),GetDate(),120)",
+      "currentPersianDate": "dbo.today(GetDate())",
+      "currentTime": "convert(varchar(5),GetDate(),108)",
+      "currentCompanyName": "DistLite",
+      "currentDepName": "دفتر مركزي",
+      "departmentInfoName": "دفتر مركزي",
+      "currentAccYear": "1400",
+      "currentCashes_ID": "1",
+      "currentAccYear_ID": "2990001",
+      "currentWareHouseID": "1",
+      "currentOrgPostID": "2997",
+      "currentPersonManagerID": "",
+      "currentDepID": "0",
+      "departmentInfoId": "0",
+      "currentUserMainAccountID": "8155",
+      "currentCompanyID": null,
+      "currentAccSecurityLevel": "1",
+      "currentLanguage": "en",
+      "currentCalendar": "1065",
+      "currentCompanyLogo": "/account/erpWeb/company/logo",
+      "samianLogo": "/samian-logo.png",
+      "currentCompanyPhoneNumber": "02188209190",
+      "currentCompanyFax": "",
+      "currentCompanyAddress": "تهران - ميدان ونك - برج آسمان - طبقه 10 - واحد 1001",
+      "currentCompanyEconomicCode": "98556655444",
+      "currentCompanyPostalCode": "",
+      "currentCompanyRegisterNumber": ""
+    }
+  },
+  "additionalData": {
+    "settings": {
+      "fields": {
+        "currenuwarehouse": {
+          "fixCalendar": "",
+          "regex": null,
+          "regexDescription": null,
+          "width": null,
+          "allowSort": false,
+          "comment": "انبار کاربر",
+          "tableName": null,
+          "numberOfLines": 0,
+          "dataType": {
+            "erp": "dropdown",
+            "sql": "bigint",
+            "simple": "number",
+            "id": 1,
+            "defaultOperator": "Equals"
+          },
+          "disabled": false,
+          "defaultValue": "1",
+          "parentField": null,
+          "moduleName": null,
+          "id": 0,
+          "caption": "انبار کاربر",
+          "translatedCaption": null,
+          "translatedComment": null,
+          "relatedName": "__currentWareHouseID_value",
+          "linkName": null,
+          "name": "currentWareHouseID",
+          "required": true,
+          "isHashed": null,
+          "hasSummary": false,
+          "miladiDisplay": false,
+          "filterDefaultValue": null,
+          "maxLength": null,
+          "dropdown": {
+            "id": 425,
+            "uniqueId": "d7b48816-a60f-4f44-826b-c39a6cbc017e",
+            "comment": "",
+            "displayMember": "warehousetitle",
+            "displayMember2": null,
+            "valueMember": "warehouse_id",
+            "moduleName": "accounting",
+            "tableName": "warehouse",
+            "type": "SearchDialog",
+            "title": "حسابداري_اطلاعات پايه_انبارهاي كاربر جاري",
+            "translatedTitle": {
+              "fa": "حسابداري_اطلاعات پايه_انبارهاي كاربر جاري",
+              "en": "حسابداري_اطلاعات پايه_انبارهاي كاربر جاري",
+              "ar": "حسابداري_اطلاعات پايه_انبارهاي كاربر جاري"
+            },
+            "translatedComment": null,
+            "treeLevel": 0,
+            "forceTreeLevel": false,
+            "remoteSearch": false,
+            "parameters": [],
+            "maps": null,
+            "columns": [
+              {
+                "title": "warehouse_id",
+                "translatedTitle": {
+                  "fa": "كد انبار",
+                  "en": "WareHouse",
+                  "ar": "المخزن المتطلب"
+                }
+              },
+              {
+                "title": "warehousetitle",
+                "translatedTitle": {
+                  "fa": "انبار",
+                  "en": "نام انبار",
+                  "ar": "نام انبار"
+                }
+              }
+            ],
+            "table": null
+          },
+          "report": null,
+          "minValue": null,
+          "maxValue": null,
+          "values": null,
+          "precision": 0,
+          "multiLanguage": false,
+          "relatedLocaleFieldId": null,
+          "multiSelectDropdown": null,
+          "relatedParameterName": null,
+          "hidden": false,
+          "hasViewPermission": false,
+          "hasEditPermission": false,
+          "format": null,
+          "uiVisible": null,
+          "uiEnable": null,
+          "defaultValueGlobalParameter": null,
+          "javaScriptFormula": null,
+          "codingPattern": null,
+          "dropdownValueMemberVisibility": false,
+          "isUniqueInGrid": false,
+          "isMapped": false,
+          "groupingPriority": 0,
+          "treeParentField": null,
+          "javaScriptUiEnable": null,
+          "javaScriptUiVisible": null
+        }
+      }
+    }
+  },
+  "totalCount": 0
+}

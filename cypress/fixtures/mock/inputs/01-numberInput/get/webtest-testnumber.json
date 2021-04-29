@@ -1,0 +1,30 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "id": 137,
+      "withprecision": 1234567,
+      "noprecision": 1234567,
+      "isdeleted": false,
+      "createdate": "2021-01-19 16:08:59",
+      "noformat": 1234567,
+      "deleteddate": null,
+      "updatedate": "2021-01-19 16:08:59",
+      "requiredfraction": 1234567,
+      "optionalfraction": 1234567,
+      "updateuserid": null,
+      "iseditable": true,
+      "testnumber_id": 137,
+      "createuserid": 1104,
+      "__createuserid_value": "Pls Do not Delete ali",
+      "__createuserid_link": "/person/personinfo/1104",
+      "__updateuserid_value": null,
+      "__updateuserid_link": null
+    }
+  ],
+  "additionalData": {
+    "summary": null
+  },
+  "totalCount": 1,
+  "requestId": "0HM5I9DCOA86T:00000002"
+}

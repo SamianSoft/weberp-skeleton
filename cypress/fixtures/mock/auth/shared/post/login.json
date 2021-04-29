@@ -1,0 +1,15 @@
+{
+  "code": 200,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJXZWJUZXN0IiwianRpIjoiOGU0MTRkNTAtODAwYi00OTUzLWI2NGItZmZkYWY3ZWUyNzE0IiwiaWF0IjoxNjE2MDUyOTk1LCJ1aXUiOiI4MTU1IiwiY3VpdSI6IjgxNTUiLCJkbiI6Itiv2YHYqtixINmF2LHZg9iy2YoiLCJkaSI6IjAiLCJheSI6IjQwMCIsImF5aSI6IjI5OTAwMDEiLCJvcGkiOiIyOTk3IiwidWltaSI6IiIsIndoIjoiMSIsImNzaGkiOiIxIiwidWlhY2NpIjoiODE1NSIsInVuIjoiV2ViVGVzdCBQbHMgRG8gbm90IERlbGV0ZSIsInVpY24iOiJEaXN0TGl0ZSIsImFzbCI6IjEiLCJ1aWMiOiIxIiwicm9sZXMiOiJFcnBVc2VyIiwibmJmIjoxNjE2MDUyOTk0LCJleHAiOjE2NDc1ODg5OTQsImlzcyI6InRva2VubGl0ZTIxIiwiYXVkIjoiaHR0cDovLzAuMC4wLjA6ODA4Ni8ifQ.UQyhrEJnyPKUP4NTTmlb8FuBZ_SdQ7g1A8XtscQvpNg",
+    "expire": 31536000,
+    "loginStatus": 0,
+    "extra": {
+      "isAdmin": true
+    },
+    "userId": 8155,
+    "companyId": 1,
+    "clientUserId": 8155
+  },
+  "totalCount": 0
+}
