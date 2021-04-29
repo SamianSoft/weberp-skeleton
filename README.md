@@ -1,2 +1,1 @@
-# weberp-skeleton
-weberp-skeleton
+## iMster web erp skeleton

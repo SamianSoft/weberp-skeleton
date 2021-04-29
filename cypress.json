@@ -1,0 +1,14 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "defaultCommandTimeout": 70000,
+  "videoUploadOnPasses": false,
+  "experimentalSourceRewriting": false,
+  "video": false,
+  "ignoreTestFiles": [
+    "*-old.js",
+    "*commands.js"
+  ],
+  "retries": 4,
+  "viewportHeight": 1200,
+  "viewportWidth": 1800
+}
