@@ -21,6 +21,7 @@ import {
   getProcessLines,
   getRelationDisabledFields,
   extractAllFieldsFromCustomGroupList,
+  preparedRelationPermission,
 } from '../helper/MetaHelper';
 import FormActionButtonList from '../component/FormActionButtonList';
 import TabChild from '../component/form/TabChild';
@@ -31,6 +32,7 @@ import NewSubmittableForm from '../component/NewSubmittableForm';
 import { NewMetaContext } from './NewMetaContext';
 import useWidth from '../component/useWidth';
 import { isEmptyObject } from '../helper/DataHelper';
+import RelationPanel from './RelationPanel';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -361,6 +363,60 @@ const CreateEditForm = props => {
               ))}
           </TabParent>
         </DummyDiv>
+
+        {!isCreateMode && (
+          <DummyDiv className={classes.simpleFormDummyDivColumnStyle}>
+            {relationsInForm &&
+              relationsInForm.map(relation => {
+                const relationResource = `${relation.moduleName}/${relation.moduleTableName}`;
+                const relationPath = `${relationResource}/${relation.childFieldName}`;
+                const relationMetaData = getMeta(relationResource);
+
+                const additionalProps = {
+                  relationPath,
+                  resource,
+                  orginalRecord,
+                  allowUsePropsAfterCreateRelation: true,
+                };
+
+                const relationPermission = preparedRelationPermission(
+                  metaData,
+                  record,
+                  relation,
+                  relationMetaData,
+                );
+
+                return (
+                  <RelationPanel
+                    {...relationPermission}
+                    key={relationPath}
+                    locale={locale}
+                    parentRecord={relationRecord}
+                    parentMetaData={metaData}
+                    parentResource={resource}
+                    basePath={basePath}
+                    location={location}
+                    match={match}
+                    hasCreate={true}
+                    hasEdit={true}
+                    childFieldName={relation.childFieldName}
+                    parentProcessUniqueId={record.__processuniqueid}
+                    parentPositionId={record.positionid}
+                    parentStateId={record.stateid}
+                    type="simple"
+                    relation={relation}
+                    relationResource={relationResource}
+                    relationPath={relationPath}
+                    additionalProps={additionalProps}
+                    classes={{
+                      container: classes.relationPanel,
+                    }}
+                    relationMetaData={relationMetaData}
+                  />
+                );
+              })}
+          </DummyDiv>
+        )}
       </NewSubmittableForm>
     </div>
   );
