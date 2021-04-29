@@ -1,9 +1,10 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK, AUTH_GET_PERMISSIONS } from 'react-admin';
+import { AUTH_LOGIN } from 'react-admin';
 
 import { USER_TOKEN, USER_ID, USER_COMPANY_ID, IS_ADMIN_USER, setValue } from './configProvider';
 
 export const AUTH_SEND_MOBILE = 'AUTH_SEND_MOBILE';
 export const AUTH_SEND_CONFIRMATION = 'AUTH_SEND_CONFIRMATION';
+
 
 export default async (type, params) => {
   switch (type) {
