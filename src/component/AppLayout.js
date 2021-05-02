@@ -73,6 +73,7 @@ const styles = theme => ({
       marginRight: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
     },
+    boxShadow: 'none',
   },
 
   appBarLeft: {
@@ -80,6 +81,7 @@ const styles = theme => ({
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
     },
+    boxShadow: 'none',
   },
 
   menuButton: {
@@ -154,7 +156,6 @@ const AppLayout = props => {
   const [isMenuOpen, setIsMenuOpen] = useState(!!getValue(CONFIG_DRAWER_MENU_IS_OPEN));
   const hasDashboard = !!dashboard;
   const isBottomMenuEnabled = getValue(CONFIG_IS_BOTTOM_MENU_ENABLED);
-
 
   useEffect(() => {
     props.setSidebarVisibility(true);

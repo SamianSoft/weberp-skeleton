@@ -1,6 +1,13 @@
 import React, { useState, useRef, useEffect, useMemo, FC } from 'react';
 import compose from 'recompose/compose';
-import { ExpansionPanel, ExpansionPanelSummary, Typography, makeStyles } from '@material-ui/core';
+import {
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  Typography,
+  makeStyles,
+  IconButton,
+  Icon,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import lodashGet from 'lodash/get';
 
@@ -10,6 +17,7 @@ import TableRelation from '../component/relation/TableRelation';
 import DynamicRelation from '../component/relation/DynamicRelation';
 import { RelationPanelType } from '../component/relation/RelationTypes';
 import RelationLoading from '../component/relation/RelationLoading';
+import AccordionComponent from '../component/Accordion/AccordionComponent';
 
 export const KEY_SCROLL_TO = 'scrollTo';
 const initialRelationData = {
@@ -17,10 +25,12 @@ const initialRelationData = {
   Data: [],
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   container: {
     marginBottom: 40,
     display: 'flex',
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: theme.shape.borderRadius,
   },
 
   expansionPanel: {
@@ -33,6 +43,12 @@ const useStyles = makeStyles(() => ({
 
   expansionPanelSummary: {
     padding: 0,
+  },
+  icon: {
+    padding: 0,
+  },
+  summaryLabel: {
+    placeSelf: 'flex-end',
   },
 }));
 
@@ -51,6 +67,7 @@ const RelationPanel: FC<RelationPanelType> = props => {
     parentStateId,
     relationResource,
     match,
+    childFieldName,
   } = props;
 
   const { moduleTableTitle, translatedTitle, title, id: relationId, reportId } = relation;
@@ -98,10 +115,10 @@ const RelationPanel: FC<RelationPanelType> = props => {
    */
   useEffect(() => {
     const scrollToTarget = getParamFromUrl(location.search, KEY_SCROLL_TO);
-    if (relationPath === scrollToTarget && element && element.current) {
+    if (childFieldName === scrollToTarget && element && element.current) {
       element.current.scrollIntoView();
     }
-  }, []);
+  },[location]);
 
   useEffect(() => {
     if (parentRecord[relationPath] && parentRecord[relationPath].Data) {
@@ -131,18 +148,21 @@ const RelationPanel: FC<RelationPanelType> = props => {
 
   return (
     <div className={classes.container} ref={element} data-test-relation-name={relationResource}>
-      <ExpansionPanel
-        className={classes.expansionPanel}
-        expanded={isPanelOpen}
-        onChange={toggleOpenPanel}
+      <AccordionComponent
+        summary={
+          <>
+            <Typography variant="body2" className={classes.summaryLabel}>
+              {relationTitle}
+            </Typography>
+            {/* //todo icon relation table */}
+            {['delete'].map(item => (
+              <IconButton color="primary" className={classes.icon}>
+                <Icon>{item}</Icon>
+              </IconButton>
+            ))}
+          </>
+        }
       >
-        <ExpansionPanelSummary
-          className={classes.expansionPanelSummary}
-          expandIcon={<ExpandMoreIcon />}
-          data-test-relation-id={relationId}
-        >
-          <Typography variant="body2">{relationTitle}</Typography>
-        </ExpansionPanelSummary>
         <TableRelation
           {...props}
           parentInfo={parentInfo}
@@ -151,7 +171,7 @@ const RelationPanel: FC<RelationPanelType> = props => {
           dynamicRelation={dynamicRelation}
           relationData={relationData}
         />
-      </ExpansionPanel>
+      </AccordionComponent>
     </div>
   );
 };

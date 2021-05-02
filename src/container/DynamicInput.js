@@ -18,9 +18,11 @@ import {
   isUpPressed,
 } from '../helper/FormHelper';
 
-import { getTypeByField, BOOLEAN_FIELD, DATE_FIELD } from '../helper/InputHelper';
+import { BOOLEAN_FIELD, DATE_FIELD } from '../helper/InputHelper';
+import { getTypeByField } from '../helper/NewInputHelper';
 import { isEmpty, isEmptyObject, clone } from '../helper/DataHelper';
 import { getDropDownListFromState } from '../helper/MetaHelper';
+import AutocompleteInput from '../component/input/AutocompleteInput';
 
 const useStyles = makeStyles(theme => ({
   inputStyle: {
@@ -502,6 +504,12 @@ const DynamicInput = props => {
   let inputComponent;
 
   switch (getTypeByField(field)) {
+    case 'multiselect': {
+      inputComponent = (
+        <AutocompleteInput field={field} {...rest} {...inputProps} onClick={handleClick} />
+      );
+      break;
+    }
     default:
       inputComponent = (
         <TextInput

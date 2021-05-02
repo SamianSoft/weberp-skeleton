@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     flexGrow: 1,
     boxShadow: 'none',
+    borderRadius: '0'
   },
 
   iconButton: {

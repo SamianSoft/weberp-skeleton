@@ -8,6 +8,10 @@ const useStyles = makeStyles(theme => ({
   validationError: {
     color: theme.palette.error.main,
   },
+  selected: {
+    color: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main + '12',
+  },
 }));
 
 const TabParent = props => {
@@ -98,6 +102,7 @@ const TabParent = props => {
               label={tab.props.label}
               onClick={onTabClick(tab, index)}
               value={index}
+              classes={{ selected: classes.selected }}
               className={isDirtyTab ? classes.validationError : null}
               data-test-has-error={isDirtyTab}
             />

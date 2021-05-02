@@ -31,6 +31,7 @@ import SettingHOC, {
 
 import { CustomTheme } from '../core/themeProvider';
 import useWidth from '../component/useWidth';
+import AccordionComponent from '../component/Accordion/AccordionComponent';
 
 interface TabInterFace {
   childFieldName: string;
@@ -298,63 +299,66 @@ const ShowRecordWithRelation = props => {
                   tab.groupList.length &&
                   tab.groupList.map((group: GroupInterface) => (
                     <div key={group.id} className={classes.groupContainer}>
-                      <div className={classes.groupHeader}>
-                        <Typography variant="body2">
-                          {lodashGet(group, ['translatedTitle', locale], group.title)}
-                        </Typography>
-                      </div>
-                      <div>
-                        <Table className={classes.table}>
-                          <TableBody data-test-hidden-fields={hiddenFieldsCaption}>
-                            {group.layout.map((rowArray, index) => (
-                              <tr key={index}>
-                                {rowArray.map((field, index) => {
-                                  if (
-                                    (field === 'empty' && (width === 'lg' || width === 'xl')) ||
-                                    (field && field.hidden)
-                                  ) {
-                                    return (
-                                      <td
-                                        key={index}
-                                        className={classes.emptyTableCell}
-                                        data-test-hidden-field={field ? field.name : null}
-                                      />
-                                    );
-                                  } else if (field && field !== 'empty' && !field.hidden) {
-                                    return (
-                                      <td
-                                        key={index}
-                                        className={classes.tableCell}
-                                        rowSpan={field.rowSpan ? field.rowSpan : 1}
-                                        colSpan={field.colSpan ? field.colSpan : 1}
-                                        data-test-td-name={field.name}
-                                      >
-                                        <DynamicField
-                                          customLabel
-                                          key={field.id}
-                                          source={field.name}
-                                          field={field}
-                                          label={lodashGet(
-                                            field,
-                                            ['translatedCaption', locale],
-                                            field.caption,
-                                          )}
-                                          record={record}
-                                          resource={tab.resource}
-                                          basePath={`/${tab.resource}`}
-                                          hasEdit={recordIsEditable}
+                      <AccordionComponent
+                        summary={
+                          <Typography variant="body2">
+                            {lodashGet(group, ['translatedTitle', locale], group.id)}
+                          </Typography>
+                        }
+                      >
+                        <div>
+                          <Table className={classes.table}>
+                            <TableBody data-test-hidden-fields={hiddenFieldsCaption}>
+                              {group.layout.map((rowArray, index) => (
+                                <tr key={index}>
+                                  {rowArray.map((field, index) => {
+                                    if (
+                                      (field === 'empty' && (width === 'lg' || width === 'xl')) ||
+                                      (field && field.hidden)
+                                    ) {
+                                      return (
+                                        <td
+                                          key={index}
+                                          className={classes.emptyTableCell}
+                                          data-test-hidden-field={field ? field.name : null}
                                         />
-                                      </td>
-                                    );
-                                  } else {
-                                    return null;
-                                  }
-                                })}
-                              </tr>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </div>
+                                      );
+                                    } else if (field && field !== 'empty' && !field.hidden) {
+                                      return (
+                                        <td
+                                          key={index}
+                                          className={classes.tableCell}
+                                          rowSpan={field.rowSpan ? field.rowSpan : 1}
+                                          colSpan={field.colSpan ? field.colSpan : 1}
+                                          data-test-td-name={field.name}
+                                        >
+                                          <DynamicField
+                                            customLabel
+                                            key={field.id}
+                                            source={field.name}
+                                            field={field}
+                                            label={lodashGet(
+                                              field,
+                                              ['translatedCaption', locale],
+                                              field.caption,
+                                            )}
+                                            record={record}
+                                            resource={tab.resource}
+                                            basePath={`/${tab.resource}`}
+                                            hasEdit={recordIsEditable}
+                                          />
+                                        </td>
+                                      );
+                                    } else {
+                                      return null;
+                                    }
+                                  })}
+                                </tr>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </div>
+                      </AccordionComponent>
                     </div>
                   ))}
                 {tab.tableRelationList &&
@@ -363,7 +367,9 @@ const ShowRecordWithRelation = props => {
                     const relationPath = `${item.moduleName}/${item.moduleTableName}/${item.childFieldName}`;
                     const relationMetaData = getMeta(relationResource);
 
-                    console.log('ShowRecordWithRelation.tsx:365 >> relationMetaData', { relationMetaData });
+                    console.log('ShowRecordWithRelation.tsx:365 >> relationMetaData', {
+                      relationMetaData,
+                    });
 
                     const relationPermission = preparedRelationPermission(
                       metaData,

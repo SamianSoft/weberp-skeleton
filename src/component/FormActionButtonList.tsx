@@ -13,6 +13,7 @@ import { isRecordEditable, isSingleRecordTable } from '../helper/MetaHelper';
 import { CustomTheme } from '../core/themeProvider';
 import useWidth from './useWidth';
 import CustomFormButton from './form/CustomFormButton';
+import RelationActionButtonsComponent from './RelationActionButtonsComponent';
 
 interface DumbButtonType {
   classes: object;

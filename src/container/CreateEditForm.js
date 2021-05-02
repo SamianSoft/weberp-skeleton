@@ -33,6 +33,8 @@ import { NewMetaContext } from './NewMetaContext';
 import useWidth from '../component/useWidth';
 import { isEmptyObject } from '../helper/DataHelper';
 import RelationPanel from './RelationPanel';
+import AccordionComponent from '../component/Accordion/AccordionComponent';
+import RelationActionButtonsComponent from '../component/RelationActionButtonsComponent';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -261,6 +263,13 @@ const CreateEditForm = props => {
 
   return (
     <div className={classes.container}>
+      <RelationActionButtonsComponent
+        basePath={basePath}
+        record={record}
+        list={relationsInForm.map(item => {
+          return { title: item.moduleTableName, id: item.childFieldName };
+        })}
+      />
       <NewSubmittableForm
         {...rest}
         className={classes.simpleForm}
@@ -311,50 +320,56 @@ const CreateEditForm = props => {
                     {tabChildProps =>
                       tab.groupList.map((group, index) => (
                         <div key={index} className={classes.groupContainer}>
-                          <div className={classes.groupHeader}>
-                            <Typography variant="body2">
-                              {lodashGet(group, ['translatedTitle', locale], group.id)}
-                            </Typography>
-                          </div>
-                          <div>
-                            <Table className={classes.table}>
-                              <TableBody>
-                                {group.layout.map((rowArray, index) => (
-                                  <tr key={index}>
-                                    {rowArray.map((field, index) => {
-                                      if (field === 'empty' && (width === 'lg' || width === 'xl')) {
-                                        return (
-                                          <td key={index} className={classes.emptyTableCell} />
-                                        );
-                                      } else if (field && field !== 'empty') {
-                                        return (
-                                          <td
-                                            key={index}
-                                            rowSpan={field.rowSpan ? field.rowSpan : 1}
-                                            colSpan={field.colSpan ? field.colSpan : 1}
-                                            className={classes.tableCell}
-                                            data-test-td-name={field.name}
-                                          >
-                                            <DynamicInput
-                                              {...tabChildProps}
-                                              key={field.id}
-                                              source={field.name}
-                                              field={field}
-                                              metaData={metaData}
-                                              isCreateMode={isCreateMode}
-                                              version={version}
-                                              additionalProps={additionalProps}
-                                              // record={record} // record is fetched directly from redux, no need to pass it here
-                                            />
-                                          </td>
-                                        );
-                                      }
-                                    })}
-                                  </tr>
-                                ))}
-                              </TableBody>
-                            </Table>
-                          </div>
+                          <AccordionComponent
+                            summary={
+                              <Typography variant="body2">
+                                {lodashGet(group, ['translatedTitle', locale], group.id)}
+                              </Typography>
+                            }
+                          >
+                            <div>
+                              <Table className={classes.table}>
+                                <TableBody>
+                                  {group.layout.map((rowArray, index) => (
+                                    <tr key={index}>
+                                      {rowArray.map((field, index) => {
+                                        if (
+                                          field === 'empty' &&
+                                          (width === 'lg' || width === 'xl')
+                                        ) {
+                                          return (
+                                            <td key={index} className={classes.emptyTableCell} />
+                                          );
+                                        } else if (field && field !== 'empty') {
+                                          return (
+                                            <td
+                                              key={index}
+                                              rowSpan={field.rowSpan ? field.rowSpan : 1}
+                                              colSpan={field.colSpan ? field.colSpan : 1}
+                                              className={classes.tableCell}
+                                              data-test-td-name={field.name}
+                                            >
+                                              <DynamicInput
+                                                {...tabChildProps}
+                                                key={field.id}
+                                                source={field.name}
+                                                field={field}
+                                                metaData={metaData}
+                                                isCreateMode={isCreateMode}
+                                                version={version}
+                                                additionalProps={additionalProps}
+                                                // record={record} // record is fetched directly from redux, no need to pass it here
+                                              />
+                                            </td>
+                                          );
+                                        }
+                                      })}
+                                    </tr>
+                                  ))}
+                                </TableBody>
+                              </Table>
+                            </div>
+                          </AccordionComponent>
                         </div>
                       ))
                     }
