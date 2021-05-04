@@ -17,14 +17,14 @@
 import 'cypress-real-events/support';
 
 import './commands';
-import '../integration/note/commands';
-import '../integration/process/commands';
-import '../integration/relation/commands';
-import '../integration/todo/commands';
+// import '../integration/note/commands';
+// import '../integration/process/commands';
+// import '../integration/relation/commands';
+// import '../integration/todo/commands';
 import '../integration/inputs/commands';
-import '../integration/grid/commands';
-import '../integration/menu/commands';
-import '../integration/tree/commands';
-import '../integration/single-record/commands';
+// import '../integration/grid/commands';
+// import '../integration/menu/commands';
+// import '../integration/tree/commands';
+// import '../integration/single-record/commands';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

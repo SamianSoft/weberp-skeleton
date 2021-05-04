@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import lodashGet from 'lodash/get';
-
+import { useHistory } from 'react-router-dom';
 import { getParamFromUrl } from '../helper/UrlHelper';
 import SettingHOC, { GET_SETTING, GET_SETTING_FOR_USER } from './SettingHOC';
 import TableRelation from '../component/relation/TableRelation';
@@ -72,7 +72,7 @@ const RelationPanel: FC<RelationPanelType> = props => {
 
   const { moduleTableTitle, translatedTitle, title, id: relationId, reportId } = relation;
   const isReport = !!reportId;
-
+  const history = useHistory();
   const classes = useStyles(props);
   const element = useRef<HTMLDivElement>(null);
 
@@ -117,8 +117,11 @@ const RelationPanel: FC<RelationPanelType> = props => {
     const scrollToTarget = getParamFromUrl(location.search, KEY_SCROLL_TO);
     if (childFieldName === scrollToTarget && element && element.current) {
       element.current.scrollIntoView();
+      history.replace({
+        search: '',
+      });
     }
-  },[location]);
+  }, [location]);
 
   useEffect(() => {
     if (parentRecord[relationPath] && parentRecord[relationPath].Data) {
