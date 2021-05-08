@@ -47,9 +47,6 @@ const useStyles = makeStyles(theme => ({
   icon: {
     padding: 0,
   },
-  summaryLabel: {
-    placeSelf: 'flex-end',
-  },
 }));
 
 const RelationPanel: FC<RelationPanelType> = props => {
@@ -69,6 +66,7 @@ const RelationPanel: FC<RelationPanelType> = props => {
     match,
     childFieldName,
   } = props;
+    console.log("🚀 ~ file: RelationPanel.tsx ~ line 69 ~ childFieldName", childFieldName)
 
   const { moduleTableTitle, translatedTitle, title, id: relationId, reportId } = relation;
   const isReport = !!reportId;
@@ -151,30 +149,15 @@ const RelationPanel: FC<RelationPanelType> = props => {
 
   return (
     <div className={classes.container} ref={element} data-test-relation-name={relationResource}>
-      <AccordionComponent
-        summary={
-          <>
-            <Typography variant="body2" className={classes.summaryLabel}>
-              {relationTitle}
-            </Typography>
-            {/* //todo icon relation table */}
-            {['delete'].map(item => (
-              <IconButton color="primary" className={classes.icon}>
-                <Icon>{item}</Icon>
-              </IconButton>
-            ))}
-          </>
-        }
-      >
-        <TableRelation
-          {...props}
-          parentInfo={parentInfo}
-          selectedIds={selectedIds}
-          isPreviouslyOpened={isPreviouslyOpened}
-          dynamicRelation={dynamicRelation}
-          relationData={relationData}
-        />
-      </AccordionComponent>
+      <TableRelation
+        {...props}
+        parentInfo={parentInfo}
+        relationTitle={relationTitle}
+        selectedIds={selectedIds}
+        isPreviouslyOpened={isPreviouslyOpened}
+        dynamicRelation={dynamicRelation}
+        relationData={relationData}
+      />
     </div>
   );
 };

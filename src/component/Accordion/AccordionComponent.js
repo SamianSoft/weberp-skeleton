@@ -5,6 +5,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { object } from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   AccordionDetails: { borderTop: '1px solid black' },
 }));
 
-export default function AccordionComponent({ summary, children }) {
+export default function AccordionComponent({ summary, children, customSummaryClass }) {
   const classes = useStyles();
 
   return (
@@ -27,6 +28,7 @@ export default function AccordionComponent({ summary, children }) {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
+          classes={{ content: customSummaryClass }}
         >
           {summary}
         </AccordionSummary>
@@ -35,3 +37,7 @@ export default function AccordionComponent({ summary, children }) {
     </div>
   );
 }
+
+AccordionComponent.defaultProps = {
+  customSummaryClass: {},
+};

@@ -1,5 +1,5 @@
 import React, { FC, SyntheticEvent } from 'react';
-import { TextField, makeStyles, Theme } from '@material-ui/core';
+import { TextField, makeStyles, Theme, InputLabel } from '@material-ui/core';
 import { useInput, useTranslate } from 'react-admin';
 import lodashGet from 'lodash/get';
 
@@ -61,6 +61,11 @@ const useStyles = makeStyles((theme: Theme) => ({
       right: 0,
     },
   },
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 }));
 
 const TextInput: FC<TextInputInterface> = props => {
@@ -104,42 +109,47 @@ const TextInput: FC<TextInputInterface> = props => {
   const hasError = !!(touched && error);
 
   return (
-    <TextField
-      {...sanitizeRestProps(rest as any)}
-      {...options}
-      value={value}
-      name={name}
-      error={!!customError || hasError}
-      helperText={
-        customError
-          ? customError
-          : hasError
-          ? translate(lodashGet(error, 'message', error))
-          : undefined
-      }
-      required={field.required}
-      margin="normal"
-      className={`${visibleClass} ${className}`}
-      variant="outlined"
-      InputProps={{
-        classes: {
-          error: classes.error,
-          input: classes.input,
-          disabled: classes.disabled,
-        },
-      }}
-      inputProps={{
-        'data-test-input-name': props.source,
-        'data-test-input-field-priority': field.priority,
-        maxLength: field.maxLength,
-      }}
-      onBlur={handleBlur}
-      onFocus={handleFocus}
-      onChange={handleChange}
-      disabled={disabled}
-      data-test="inputContainerTextField"
-      data-test-has-error={!!customError || hasError}
-    />
+    <div className={classes.root}>
+      <InputLabel>{rest.label}</InputLabel>
+      &nbsp;
+      <TextField
+        {...sanitizeRestProps(rest as any)}
+        {...options}
+        value={value}
+        name={name}
+        error={!!customError || hasError}
+        helperText={
+          customError
+            ? customError
+            : hasError
+            ? translate(lodashGet(error, 'message', error))
+            : undefined
+        }
+        required={field.required}
+        margin="normal"
+        className={`${visibleClass} ${className}`}
+        variant="outlined"
+        InputLabelProps={{ style: { display: 'none' }, shrink: false }}
+        InputProps={{
+          classes: {
+            error: classes.error,
+            input: classes.input,
+            disabled: classes.disabled,
+          },
+        }}
+        inputProps={{
+          'data-test-input-name': props.source,
+          'data-test-input-field-priority': field.priority,
+          maxLength: field.maxLength,
+        }}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        disabled={disabled}
+        data-test="inputContainerTextField"
+        data-test-has-error={!!customError || hasError}
+      />
+    </div>
   );
 };
 

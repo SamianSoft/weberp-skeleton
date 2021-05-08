@@ -1727,7 +1727,7 @@
           "simple": "string",
           "sql": "varchar(max)"
         },
-        "defaultValue": null,
+        "defaultValue": [{"title": "test", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}}],
         "defaultValueGlobalParameter": null,
         "disabled": false,
         "dropdown": {

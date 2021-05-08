@@ -5,7 +5,8 @@ import { withStyles, CardActions } from '@material-ui/core';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 
-import { getProcessLines, isRecordEditable } from '../helper/MetaHelper';
+import { getProcessLines, getRelationsInForm, isRecordEditable } from '../helper/MetaHelper';
+import RelationActionButtonsComponent from './RelationActionButtonsComponent';
 
 const styles = theme => ({
   cardActionStyle: {
@@ -43,16 +44,28 @@ const ShowActions = ({
       ? Array.from(processLineList.map(x => x.title)).join(',')
       : '';
 
-
   return (
-    <CardActions className={classes.cardActionStyle} data-test-process-lines={processLineNamesTest}>
-      <EditButton
+    <>
+      <RelationActionButtonsComponent
         basePath={basePath}
         record={record}
-        disabled={!isEditEnabled}
-        id="editActionButton"
+        isType="show"
+        list={getRelationsInForm(metaData).map(item => {
+          return { title: item.moduleTableName, id: item.childFieldName };
+        })}
       />
-    </CardActions>
+      <CardActions
+        className={classes.cardActionStyle}
+        data-test-process-lines={processLineNamesTest}
+      >
+        <EditButton
+          basePath={basePath}
+          record={record}
+          disabled={!isEditEnabled}
+          id="editActionButton"
+        />
+      </CardActions>
+    </>
   );
 };
 
@@ -69,8 +82,7 @@ ShowActions.propTypes = {
   hasEdit: PropTypes.bool.isRequired,
 };
 
-const mapDispatchTopProps = {
-};
+const mapDispatchTopProps = {};
 
 export default compose(
   withStyles(styles, { withTheme: true }),

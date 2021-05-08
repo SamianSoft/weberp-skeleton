@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function RelationActionButtonsComponent(props) {
-  const { list, basePath, record, ...rest } = props;
+  const { list, basePath, record, isType, ...rest } = props;
   const classes = useStyles();
   /**
    * useful to prevent click bubbling in a datagrid with rowClick
@@ -38,7 +38,7 @@ export default function RelationActionButtonsComponent(props) {
           <ReactAdminButton
             className={classes.buttonLink}
             component={Link}
-            to={`${linkToRecord(basePath, record && record.id)}?scrollTo=${item.id}`}
+            to={`${linkToRecord(basePath, record && record.id, isType)}?scrollTo=${item.id}`}
             onClick={stopPropagation}
             label={item.title}
             {...rest}

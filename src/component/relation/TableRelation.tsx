@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import { ExpansionPanelDetails, makeStyles } from '@material-ui/core';
+import { ExpansionPanelDetails, makeStyles, Typography } from '@material-ui/core';
 
 import LazyReferenceManyField from '../../container/admin/LazyReferenceManyField';
 import RelationActionBar from './RelationActionBar';
@@ -7,6 +7,7 @@ import { isEmptyObject } from '../../helper/DataHelper';
 import { getDefaultSort } from '../../helper/MetaHelper';
 import LoadingBox from '../LoadingBox';
 import { TableRelationType } from './RelationTypes';
+import AccordionComponent from '../Accordion/AccordionComponent';
 
 const useStyles = makeStyles(theme => ({
   expansionPanelDetails: {
@@ -40,6 +41,12 @@ const useStyles = makeStyles(theme => ({
       maxWidth: 2950,
     },
   },
+  summaryLabel: {
+    placeSelf: 'center',
+  },
+  summaryClass: {
+    justifyContent: 'space-between',
+  },
 }));
 
 const TableRelation: FC<TableRelationType> = props => {
@@ -62,6 +69,7 @@ const TableRelation: FC<TableRelationType> = props => {
     isPreviouslyOpened,
     dynamicRelation,
     relation,
+    relationTitle,
     ...rest
   } = props;
 
@@ -79,8 +87,17 @@ const TableRelation: FC<TableRelationType> = props => {
   console.log('TableRelation.tsx:83 >> relationMetaData', { relationMetaData });
 
   return (
-    <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-      <RelationActionBar {...props} preparedSort={preparedSort} />
+    <AccordionComponent
+      customSummaryClass={classes.summaryClass}
+      summary={
+        <>
+          <Typography variant="body2" className={classes.summaryLabel}>
+            {relationTitle}
+          </Typography>
+          <RelationActionBar {...props} preparedSort={preparedSort} />
+        </>
+      }
+    >
       {isPreviouslyOpened && relationMetaData && (
         <LazyReferenceManyField
           {...rest}
@@ -99,7 +116,7 @@ const TableRelation: FC<TableRelationType> = props => {
           {dynamicRelation}
         </LazyReferenceManyField>
       )}
-    </ExpansionPanelDetails>
+    </AccordionComponent>
   );
 };
 

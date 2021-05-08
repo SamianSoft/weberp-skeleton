@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme: CustomTheme) => ({
   },
 
   tableCell: {
-    border: `1px solid ${theme.palette.divider}`,
+    // border: `1px solid ${theme.palette.divider}`,
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.shape.borderRadius,
     padding: 8,
@@ -396,6 +396,7 @@ const ShowRecordWithRelation = props => {
                           {...relationPermission}
                           type="simple"
                           relation={item}
+                          childFieldName={item.childFieldName}
                           relationResource={relationResource}
                           relationPath={relationPath}
                           relationMetaData={relationMetaData}

@@ -73,6 +73,7 @@ export interface TableRelationType {
   relationMetaData: RelationMetaType;
   disabledFieldList?: { [x: number]: boolean } | null;
   parentFieldName: string;
+  relationTitle: string;
   additionalProps: object;
   selectedIds: number[];
   relationPath: string;

@@ -8,7 +8,9 @@ import { Icon, IconButton, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { getTypeByField } from '../helper/InputHelper';
+import { getTypeByField } from '../helper/NewInputHelper';
+import AutocompleteInput from '../component/input/AutocompleteInput';
+import TextInput from '../component/input/TextInput';
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -19,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 
   fieldItem: {
     display: 'flex',
+    height: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -36,8 +39,16 @@ const useStyles = makeStyles(theme => ({
     flexGrow: '2',
     overflow: 'hidden',
     fontSize: 12,
+    display: 'flex',
+    height: '100%',
+    alignItems: 'center'
   },
-
+  inputField: {
+    width: '100%',
+    height: '100%',
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: 4,
+  },
   fieldLink: {
     textDecoration: 'none',
     color: theme.palette.secondary.main,
@@ -64,16 +75,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DynamicField = props => {
-  const {
-    field,
-    source,
-    record,
-    customLabel,
-    hasEdit,
-    label,
-    relationMode,
-    ...rest
-  } = props;
+  const { field, source, record, customLabel, hasEdit, label, relationMode, ...rest } = props;
 
   const classes = useStyles(props);
   const commonProps = {
@@ -92,7 +94,6 @@ const DynamicField = props => {
   const setCurrentValueToFilter = () => {
     const { parameterKey, relatedName } = field;
     const value = lodashGet(record, relatedName);
-
   };
 
   /**
@@ -107,6 +108,10 @@ const DynamicField = props => {
   let fieldComponent;
 
   switch (getTypeByField(field)) {
+    case 'multiselect': {
+      fieldComponent = <AutocompleteInput field={field} {...rest} {...commonProps} disabled />;
+      break;
+    }
     default: {
       const linkName = lodashGet(field, 'linkName');
       const linkValue = lodashGet(record, linkName);
@@ -130,7 +135,21 @@ const DynamicField = props => {
             className={classes.textField}
           />
         ) : (
-          record[source]
+          <div
+            className={classes.fieldItem}
+            data-test-field-disabled={field.disabled}
+            data-test-field-editable={hasEdit}
+          >
+            <Typography className={classes.fieldCaption} variant="body2">
+              {label}
+            </Typography>
+            &nbsp;
+            <div className={classes.inputField}>
+              <Typography className={classes.fieldValue} variant="">
+                {record[source]}
+              </Typography>
+            </div>
+          </div>
         );
       }
     }
@@ -151,18 +170,7 @@ const DynamicField = props => {
       {fieldComponent}
     </>
   ) : (
-    <div
-      className={classes.fieldItem}
-      data-test-field-disabled={field.disabled}
-      data-test-field-editable={hasEdit}
-    >
-      <Typography className={classes.fieldCaption} variant="body2">
-        {label}
-      </Typography>
-      <Typography className={classes.fieldValue} variant="subtitle2">
-        {fieldComponent}
-      </Typography>
-    </div>
+    <>{fieldComponent}</>
   );
 };
 
@@ -171,7 +179,6 @@ DynamicField.propTypes = {
   source: PropTypes.string.isRequired, // must be defined for grid to show header column
 };
 
-const mapDispatchTopProps = {
-};
+const mapDispatchTopProps = {};
 
 export default connect(null, mapDispatchTopProps)(DynamicField);
