@@ -1,14 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo, FC } from 'react';
 import compose from 'recompose/compose';
-import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  Typography,
-  makeStyles,
-  IconButton,
-  Icon,
-} from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { makeStyles } from '@material-ui/core';
 import lodashGet from 'lodash/get';
 import { useHistory } from 'react-router-dom';
 import { getParamFromUrl } from '../helper/UrlHelper';
@@ -16,8 +8,6 @@ import SettingHOC, { GET_SETTING, GET_SETTING_FOR_USER } from './SettingHOC';
 import TableRelation from '../component/relation/TableRelation';
 import DynamicRelation from '../component/relation/DynamicRelation';
 import { RelationPanelType } from '../component/relation/RelationTypes';
-import RelationLoading from '../component/relation/RelationLoading';
-import AccordionComponent from '../component/Accordion/AccordionComponent';
 
 export const KEY_SCROLL_TO = 'scrollTo';
 const initialRelationData = {
@@ -66,7 +56,7 @@ const RelationPanel: FC<RelationPanelType> = props => {
     match,
     childFieldName,
   } = props;
-    console.log("🚀 ~ file: RelationPanel.tsx ~ line 69 ~ childFieldName", childFieldName)
+  console.log('🚀 ~ file: RelationPanel.tsx ~ line 69 ~ childFieldName', childFieldName);
 
   const { moduleTableTitle, translatedTitle, title, id: relationId, reportId } = relation;
   const isReport = !!reportId;

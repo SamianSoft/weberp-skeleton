@@ -1,11 +1,12 @@
 import React, { FC, SyntheticEvent } from 'react';
-import { TextField, makeStyles, Theme, InputLabel } from '@material-ui/core';
+import { TextField, makeStyles, Theme, InputLabel, Grid } from '@material-ui/core';
 import { useInput, useTranslate } from 'react-admin';
 import lodashGet from 'lodash/get';
 
 import sanitizeRestProps from './sanitizeRestProps';
 import { convertDigitsToEnglish } from '../../helper/NumberHelper';
 import { FieldType } from '../../helper/Types';
+import InputLabelComponent from './InputLabelComponent';
 
 interface InputProps {
   onBlur: Function;
@@ -61,11 +62,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       right: 0,
     },
   },
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
 }));
 
 const TextInput: FC<TextInputInterface> = props => {
@@ -109,9 +105,7 @@ const TextInput: FC<TextInputInterface> = props => {
   const hasError = !!(touched && error);
 
   return (
-    <div className={classes.root}>
-      <InputLabel>{rest.label}</InputLabel>
-      &nbsp;
+    <InputLabelComponent label={rest.label}>
       <TextField
         {...sanitizeRestProps(rest as any)}
         {...options}
@@ -149,7 +143,7 @@ const TextInput: FC<TextInputInterface> = props => {
         data-test="inputContainerTextField"
         data-test-has-error={!!customError || hasError}
       />
-    </div>
+    </InputLabelComponent>
   );
 };
 

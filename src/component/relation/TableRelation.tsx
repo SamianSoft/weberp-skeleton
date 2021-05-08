@@ -1,11 +1,9 @@
 import React, { FC, useState, useEffect } from 'react';
-import { ExpansionPanelDetails, makeStyles, Typography } from '@material-ui/core';
-
+import {  makeStyles, Typography } from '@material-ui/core';
 import LazyReferenceManyField from '../../container/admin/LazyReferenceManyField';
 import RelationActionBar from './RelationActionBar';
 import { isEmptyObject } from '../../helper/DataHelper';
 import { getDefaultSort } from '../../helper/MetaHelper';
-import LoadingBox from '../LoadingBox';
 import { TableRelationType } from './RelationTypes';
 import AccordionComponent from '../Accordion/AccordionComponent';
 

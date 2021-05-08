@@ -999,16 +999,16 @@
         "parentField": null,
         "moduleName": "webtest",
         "id": 47581,
-        "caption": "zeroFieldRequiredDisable",
+        "caption": "zeroField Required Disable",
         "translatedCaption": {
-          "fa": "zeroFieldRequiredDisable",
-          "en": "zeroFieldRequiredDisable",
-          "ar": "zeroFieldRequiredDisable"
+          "fa": "zeroField Required Disable",
+          "en": "zeroField Required Disable",
+          "ar": "zeroField Required Disable"
         },
         "translatedComment": {
-          "fa": "zeroFieldRequiredDisable",
-          "en": "zeroFieldRequiredDisable",
-          "ar": "zeroFieldRequiredDisable"
+          "fa": "zeroField Required Disable",
+          "en": "zeroField Required Disable",
+          "ar": "zeroField Required Disable"
         },
         "relatedName": "zerofieldrequireddisable",
         "linkName": null,
@@ -1734,7 +1734,10 @@
           "columns": [
             {"title": "customer_id", "translatedTitle": {"fa": "Customer_ID", "en": "Customer_ID", "ar": "Customer_ID"}},
             {"title": "isdeleted", "translatedTitle": {"fa": "حذف شده", "en": "IsDeleted", "ar": "IsDeleted"}},
-            {"title": "test", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}}
+            {"title": "test", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}},
+            {"title": "tedst", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}},
+            {"title": "tefst", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}},
+            {"title": "tesdt", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}}
           ],
           "comment": "",
           "displayMember": "customertitle",
@@ -1934,7 +1937,7 @@
             "rowIndex": 2,
             "columnIndex": 2,
             "colSpan": 2,
-            "rowSpan": 2
+            "rowSpan": null
           },
           {
             "fieldId": 47029,
@@ -1946,8 +1949,8 @@
           {
             "fieldId": 47025,
             "rowIndex": 4,
-            "columnIndex": 3,
-            "colSpan": null,
+            "columnIndex": 2,
+            "colSpan": 2,
             "rowSpan": null
           },
           {

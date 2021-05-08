@@ -1,3 +1,3 @@
 export const getTypeByField = field => {
-  return field.name ? field.name : '';
+  return field.dataType ? field.dataType.erp : '';
 };

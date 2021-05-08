@@ -60,10 +60,13 @@ const useStyles = makeStyles((theme: CustomTheme) => ({
     margin: 0,
     padding: '0 16px',
     borderTop: `1px solid ${theme.palette.primary.appPrimaryDividerColor}`,
+    boxShadow:
+      '0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
   },
 
   dumbButton: {
     margin: '0 5px',
+
   },
 
   grow: {
@@ -260,7 +263,7 @@ const FormActionButtonList = (props: FormActionButtonListType) => {
               component={Link}
               to={`${linkToRecord(basePath, record && record.id)}/show`}
               onClick={stopPropagation}
-              label={translate('ra.action.show')}
+              // label={translate('ra.action.show')}
               {...(rest as any)}
             >
               <Icon>visibility</Icon>

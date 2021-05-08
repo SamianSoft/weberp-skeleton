@@ -26,7 +26,7 @@ import AutocompleteInput from '../component/input/AutocompleteInput';
 
 const useStyles = makeStyles(theme => ({
   inputStyle: {
-    width: '100%',
+    flex: 'auto',
     height: '100%',
     backgroundColor: theme.palette.background.paper,
     '& input': {
@@ -504,7 +504,7 @@ const DynamicInput = props => {
   let inputComponent;
 
   switch (getTypeByField(field)) {
-    case 'multiselect': {
+    case 'stringMultiSelectDropBase': {
       inputComponent = (
         <AutocompleteInput field={field} {...rest} {...inputProps} onClick={handleClick} />
       );

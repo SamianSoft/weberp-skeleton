@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { object } from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,7 +16,17 @@ const useStyles = makeStyles(theme => ({
   AccordionDetails: { borderTop: '1px solid black' },
 }));
 
-export default function AccordionComponent({ summary, children, customSummaryClass }) {
+interface AccordionComponentPropsInterface {
+  summary: ReactNode;
+  children: ReactNode;
+  customSummaryClass: string;
+}
+
+const AccordionComponent: FC<AccordionComponentPropsInterface> = ({
+  summary,
+  children,
+  customSummaryClass,
+}) => {
   const classes = useStyles();
 
   return (
@@ -36,8 +44,10 @@ export default function AccordionComponent({ summary, children, customSummaryCla
       </Accordion>
     </div>
   );
-}
+};
 
 AccordionComponent.defaultProps = {
-  customSummaryClass: {},
+  customSummaryClass: '',
 };
+
+export default AccordionComponent;

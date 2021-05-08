@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
+    backgroundColor: theme.palette.primary.appPrimaryBackgroundColor,
   },
 
   simpleForm: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles(theme => ({
       display: 'flex',
       flexDirection: 'column',
       overflow: 'auto',
-      // padding: 0,
+      padding: 16,
       '& > div': {
         display: 'flex',
         flexGrow: 1,
@@ -321,6 +322,7 @@ const CreateEditForm = props => {
                       tab.groupList.map((group, index) => (
                         <div key={index} className={classes.groupContainer}>
                           <AccordionComponent
+                            customSummaryClass=""
                             summary={
                               <Typography variant="body2">
                                 {lodashGet(group, ['translatedTitle', locale], group.id)}

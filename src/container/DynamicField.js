@@ -10,7 +10,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { getTypeByField } from '../helper/NewInputHelper';
 import AutocompleteInput from '../component/input/AutocompleteInput';
-import TextInput from '../component/input/TextInput';
+import InputLabelComponent from '../component/input/InputLabelComponent';
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 12,
     display: 'flex',
     height: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   inputField: {
     width: '100%',
@@ -108,7 +108,7 @@ const DynamicField = props => {
   let fieldComponent;
 
   switch (getTypeByField(field)) {
-    case 'multiselect': {
+    case 'stringMultiSelectDropBase': {
       fieldComponent = <AutocompleteInput field={field} {...rest} {...commonProps} disabled />;
       break;
     }
@@ -135,21 +135,13 @@ const DynamicField = props => {
             className={classes.textField}
           />
         ) : (
-          <div
-            className={classes.fieldItem}
-            data-test-field-disabled={field.disabled}
-            data-test-field-editable={hasEdit}
-          >
-            <Typography className={classes.fieldCaption} variant="body2">
-              {label}
-            </Typography>
-            &nbsp;
+          <InputLabelComponent label={label}>
             <div className={classes.inputField}>
               <Typography className={classes.fieldValue} variant="">
                 {record[source]}
               </Typography>
             </div>
-          </div>
+          </InputLabelComponent>
         );
       }
     }

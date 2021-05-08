@@ -71,8 +71,9 @@ const useStyles = makeStyles((theme: CustomTheme) => ({
     flexWrap: 'wrap',
     flexGrow: 1,
     overflowX: 'hidden',
-    padding: '0 21px',
+    padding: '16px',
     alignContent: 'flex-start',
+    backgroundColor: theme.palette.primary.appPrimaryBackgroundColor,
   },
 
   relationItem: {
@@ -109,7 +110,7 @@ const useStyles = makeStyles((theme: CustomTheme) => ({
     // border: `1px solid ${theme.palette.divider}`,
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.shape.borderRadius,
-    padding: 8,
+    padding: 0,
     [theme.breakpoints.up('lg')]: {
       height: 40,
     },
@@ -300,6 +301,7 @@ const ShowRecordWithRelation = props => {
                   tab.groupList.map((group: GroupInterface) => (
                     <div key={group.id} className={classes.groupContainer}>
                       <AccordionComponent
+                        customSummaryClass=""
                         summary={
                           <Typography variant="body2">
                             {lodashGet(group, ['translatedTitle', locale], group.id)}
