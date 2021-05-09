@@ -1,35 +1,29 @@
 it('finds my favorite movie', () => {
   cy.visit('#/webtest/order/22');
+  cy.viewport(1600, 750);
   cy.wait(1000);
 
   // test empty option
   cy.get('[data-test-input-name="auto-complete-input"]').click();
-  cy.focused().type('sdfle');
+  cy.get('[data-test-input-name="auto-complete-input-box"]').type('sdfle');
   cy.contains('ایتم وجود ندارد').should('be.visible');
-  cy.focused().type('{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}');
+  cy.get('[data-test-input-name="auto-complete-input-box"]').type(
+    '{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}',
+  );
   // test search item and click
-  cy.get('[data-test-input-name="auto-complete-input"]').click();
-  cy.focused().type('isdele');
+  cy.get('[data-test-input-name="auto-complete-input-box"]').type('isdele');
   cy.contains('isdeleted')
     .should('be.visible')
-    .and('have.class', 'MuiAutocomplete-option')
     .click();
-  cy.get('[data-test-input-name="auto-complete-input"]').click();
-  cy.focused().type('cust');
+  cy.get('[data-test-input-name="auto-complete-input-box"]').type('cust');
   cy.contains('customer_id')
     .should('be.visible')
-    .and('have.class', 'MuiAutocomplete-option')
+    .click();
+  cy.get('[data-test-input-name="auto-complete-input-box"]').type('2');
+  cy.contains('test2')
+    .should('be.visible')
     .click();
   // test more item on ...
   cy.get('[data-test-input-name="mouse-over-more-test"]').trigger('mouseover');
-  cy.get('[data-test-input-name="popover-more-test"]').contains('customer_id');
-  // test show all options
-  cy.focused().type('{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}');
-  cy.get('.MuiAutocomplete-option')
-    .should('have.length', 3)
-    .and(el$ => {
-      expect(el$[0]).to.have.text('customer_id');
-      expect(el$[1]).to.have.text('isdeleted');
-      expect(el$[2]).to.have.text('test');
-    });
+  cy.get('[data-test-input-name="popover-more-test"]').contains('test2');
 });

@@ -15,6 +15,7 @@ export default {
     showFull: 'نمایش کامل',
     chooseFile: 'انتخاب فایل',
     search:'جستجو',
+    multiPlaceHolder:'لطفا انتخاب کنید',
     sendingData: 'در حال ارسال داده',
     createAndNew: 'ذخیره و جدید',
     noOption:'ایتم وجود ندارد',

@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
   rootDropdown: {
     width: '100%',
     position: 'relative',
+    height: '100%',
   },
   rootTooltip: {
     backgroundColor: theme.palette.common.white,
@@ -126,6 +127,15 @@ const useStyles = makeStyles(theme => ({
       color: 'white',
     },
   },
+  rootTags: {
+    display: 'flex',
+  },
+  padding: {
+    padding: 0,
+  },
+  paddingInput: {
+    padding: 8,
+  },
 }));
 const icon = <CheckBoxOutlineBlankIcon style={{ borderRadius: 4 }} fontSize="small" />;
 const checkedIcon = (
@@ -182,18 +192,21 @@ interface SelectOptionsInterface {
 }
 
 const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
-  const { field, limitTag = 5, disabled = false, keyValue = 'title', ...rest } = props;
+  const { field, limitTag = 2, disabled = false, keyValue = 'title', ...rest } = props;
   const [state, setState] = useState<SelectOptionsInterface>({ selectedOptions: [] });
   useEffect(() => {
     setState({ selectedOptions: field.defaultValue || [] });
   }, []);
   const classes = useStyles();
   const [isMore, setIsMore] = useState(false);
-  const [limitCount, setLimitCount] = useState(1);
-  const htmlElRef = createRef<HTMLInputElement>();
-  const refSelectedButton = createRef<HTMLInputElement>();
+  const [limitCount, setLimitCount] = useState(0);
+  const refTags = createRef<HTMLInputElement>();
   const refRoot = createRef<HTMLInputElement>();
   const translate = useTranslate();
+
+  useEffect(() => {
+    setLimitCount(limitTag);
+  }, [limitTag]);
 
   const {
     getRootProps,
@@ -218,19 +231,15 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
     multiple: true,
     disableCloseOnSelect: true,
   });
-  console.log(
-    '🚀 ~ file: AutocompleteInput.tsx ~ line 274 ~ handleOnClickPopup ~ getPopupIndicatorProps',
-    getInputProps(),
-  );
 
   useEffect(() => {
-    if (refSelectedButton.current && refRoot.current) {
-      const tagsWidth = refSelectedButton.current.offsetWidth;
+    if (refTags.current && refRoot.current) {
+      const tagsWidth = refTags.current.offsetWidth;
       const rootWidth = refRoot.current.offsetWidth;
       const division = tagsWidth / rootWidth;
-      setIsMore(division * 100 >= 80);
+      setIsMore(division * 100 >= 75);
     }
-  }, [refSelectedButton, refRoot]);
+  }, [refTags, refRoot]);
   useEffect(() => {
     if (isMore) {
       setLimitCount(value.length);
@@ -239,13 +248,9 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
     }
   }, [isMore]);
   const handleOnClick = () => {
-    setTimeout(() => {
-      if (htmlElRef.current) {
-        htmlElRef.current.focus();
-      }
-    }, 50);
+    handleOnClickPopup();
   };
-  const handleOnClickPopup = (event: SyntheticEvent) => () => {
+  const handleOnClickPopup = () => {
     getPopupIndicatorProps()['onClick']();
   };
 
@@ -256,20 +261,27 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
           className={`${classes.root} ${popupOpen ? classes.rootPopup : ''}`}
           {...getRootProps()}
         >
-          <div style={{ display: 'flex' }} ref={refSelectedButton}>
+          <div className={classes.rootTags} ref={refTags}>
             {value.length
               ? value.slice(0, limitCount).map((item, index) => (
-                  <ButtonBase component="div" classes={{ root: classes.button }}>
+                  <ButtonBase
+                    disabled={disabled}
+                    component="div"
+                    classes={{ root: classes.button }}
+                  >
                     <Typography>{item[keyValue]}</Typography>
-                    <ClearIcon
+                    <IconButton
+                      className={classes.padding}
                       onClick={getTagProps({ index })['onDelete']}
-                      className={classes.clearIcon}
-                    />
+                      disabled={disabled}
+                    >
+                      <ClearIcon className={classes.clearIcon} />
+                    </IconButton>
                   </ButtonBase>
                 ))
               : null}
           </div>
-          {isMore && (
+          {isMore || value.length >= limitCount ? (
             <Tooltip
               classes={{ tooltip: classes.rootTooltip }}
               title={
@@ -284,28 +296,54 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
                 ...
               </p>
             </Tooltip>
-          )}
+          ) : null}
           <InputBase
             fullWidth
             inputProps={{
               ...getInputProps(),
+              placeholder: translate('form.multiPlaceHolder'),
               value: '',
               onClick: handleOnClick,
-              onFocus: handleOnClick,
               onBlur: () => {},
+              disabled: disabled,
+              className: classes.paddingInput,
             }}
           />
-          {value.length ? <ClearIcon {...getClearProps()} className={classes.clearIcon} /> : null}
+          {/* {value.length ? (
+            <IconButton
+              {...getClearProps()}
+              disabled={disabled}
+            >
+              <ClearIcon className={classes.clearIcon} />
+            </IconButton>
+          ) : null} */}
           {!popupOpen ? (
-            <ArrowDropDownIcon onClick={e => handleOnClickPopup(e)} className={classes.drop} />
+            <IconButton
+              onClick={handleOnClickPopup}
+              className={classes.padding}
+              disabled={disabled}
+              data-test-input-name="auto-complete-input"
+            >
+              <ArrowDropDownIcon className={classes.drop} />
+            </IconButton>
           ) : (
-            <ArrowDropUpIcon onClick={e => handleOnClickPopup(e)} className={classes.drop} />
+            <IconButton
+              onClick={handleOnClickPopup}
+              className={classes.padding}
+              disabled={disabled}
+            >
+              <ArrowDropUpIcon className={classes.drop} />
+            </IconButton>
           )}
         </div>
         {popupOpen ? (
           <Paper elevation={3} variant="outlined" className={classes.listbox}>
             <TextField
-              inputProps={{ style: { padding: 8 }, ...getInputProps(), ref: htmlElRef }}
+              data-test-input-name="auto-complete-input-box"
+              inputProps={{
+                className: classes.paddingInput,
+                ...getInputProps(),
+              }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -314,6 +352,8 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
                 ),
               }}
               fullWidth
+              autoFocus
+              disabled={disabled}
               // placeholder={translate('form.search')}
               variant="outlined"
             />
@@ -325,7 +365,6 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
                       <Checkbox
                         icon={icon}
                         checkedIcon={checkedIcon}
-                        style={{ marginRight: 2 }}
                         checked={
                           value.find(item => item[keyValue] === option[keyValue]) ? true : false
                         }
@@ -345,4 +384,4 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
   );
 };
 
-export default memo(AutocompleteInput);
+export default AutocompleteInput;

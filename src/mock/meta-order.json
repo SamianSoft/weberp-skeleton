@@ -1735,9 +1735,7 @@
             {"title": "customer_id", "translatedTitle": {"fa": "Customer_ID", "en": "Customer_ID", "ar": "Customer_ID"}},
             {"title": "isdeleted", "translatedTitle": {"fa": "حذف شده", "en": "IsDeleted", "ar": "IsDeleted"}},
             {"title": "test", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}},
-            {"title": "tedst", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}},
-            {"title": "tefst", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}},
-            {"title": "tesdt", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}}
+            {"title": "test2", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}}
           ],
           "comment": "",
           "displayMember": "customertitle",
