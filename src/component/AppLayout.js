@@ -135,6 +135,7 @@ const styles = theme => ({
 
   appBarTitle: {
     flexGrow: 1,
+    color: themeParams.palette.secondary.main,
     padding: '0 10px',
     [theme.breakpoints.down('xs')]: {
       fontSize: 10,

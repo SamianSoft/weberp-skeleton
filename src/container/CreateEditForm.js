@@ -381,7 +381,7 @@ const CreateEditForm = props => {
           </TabParent>
         </DummyDiv>
 
-        {/* {!isCreateMode && (
+        {!isCreateMode && (
           <DummyDiv className={classes.simpleFormDummyDivColumnStyle}>
             {relationsInForm &&
               relationsInForm.map(relation => {
@@ -433,7 +433,7 @@ const CreateEditForm = props => {
                 );
               })}
           </DummyDiv>
-        )} */}
+        )}
       </NewSubmittableForm>
     </div>
   );
