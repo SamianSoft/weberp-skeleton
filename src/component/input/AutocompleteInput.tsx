@@ -1,32 +1,18 @@
 /* eslint-disable no-use-before-define */
-import React, {
-  FC,
-  ReactNode,
-  memo,
-  useEffect,
-  useRef,
-  useState,
-  createRef,
-  SyntheticEvent,
-} from 'react';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import React, { FC, useEffect, useRef, useState, createRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import {
-  Button,
   ButtonBase,
   Checkbox,
-  Grid,
   IconButton,
   InputAdornment,
   InputBase,
-  InputLabel,
   Paper,
   Tooltip,
   Typography,
 } from '@material-ui/core';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import { FieldType } from '../../helper/Types';
 import InputLabelComponent from './InputLabelComponent';
 import { useTranslate } from 'react-admin';
