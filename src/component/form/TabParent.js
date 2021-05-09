@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 100,
   },
+  rootTab: {
+    marginBottom: 8,
+  },
 }));
 
 const TabParent = props => {
@@ -91,7 +94,7 @@ const TabParent = props => {
 
   return (
     <div className={className}>
-      <Tabs value={selectedTab} variant="scrollable" scrollButtons="on">
+      <Tabs className={classes.rootTab} value={selectedTab} variant="scrollable" scrollButtons="on">
         {Children.map(children, (tab, index) => {
           if (!tab) {
             return null;
