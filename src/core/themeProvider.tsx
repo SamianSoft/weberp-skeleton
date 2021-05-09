@@ -64,6 +64,9 @@ export const themeParams = {
   typography: {
     useNextVariants: true,
     // https://material-ui.com/customization/themes/#typography
+    body2: {
+      fontWeight: 600,
+    },
     fontFamily: [
       'WebErpFont',
       '-apple-system',

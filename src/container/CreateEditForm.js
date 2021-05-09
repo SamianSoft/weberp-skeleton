@@ -80,6 +80,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     flexWrap: 'wrap',
     flexDirection: 'column',
+    marginTop: '6px',
   },
 
   tabParent: {
@@ -92,9 +93,7 @@ const useStyles = makeStyles(theme => ({
   groupContainer: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '10px 0',
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: theme.shape.borderRadius,
+    margin: '3px 0',
     backgroundColor: theme.palette.grey[50],
   },
 
@@ -322,6 +321,7 @@ const CreateEditForm = props => {
                       tab.groupList.map((group, index) => (
                         <div key={index} className={classes.groupContainer}>
                           <AccordionComponent
+                            index={index}
                             customSummaryClass=""
                             summary={
                               <Typography variant="body2">
@@ -384,7 +384,7 @@ const CreateEditForm = props => {
         {!isCreateMode && (
           <DummyDiv className={classes.simpleFormDummyDivColumnStyle}>
             {relationsInForm &&
-              relationsInForm.map(relation => {
+              relationsInForm.map((relation, index) => {
                 const relationResource = `${relation.moduleName}/${relation.moduleTableName}`;
                 const relationPath = `${relationResource}/${relation.childFieldName}`;
                 const relationMetaData = getMeta(relationResource);
@@ -407,6 +407,7 @@ const CreateEditForm = props => {
                   <RelationPanel
                     {...relationPermission}
                     key={relationPath}
+                    index={index}
                     locale={locale}
                     parentRecord={relationRecord}
                     parentMetaData={metaData}

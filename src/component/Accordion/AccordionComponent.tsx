@@ -14,29 +14,38 @@ const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
   AccordionDetails: { borderTop: '1px solid black' },
+  content: { maxHeight: '45px !important', minHeight: '45px !important' },
+  topRounded: { borderRadius: '4px 4px 0 0' },
+  bottomRounded: { borderRadius: '0 0 4px 4px' },
 }));
 
 interface AccordionComponentPropsInterface {
   summary: ReactNode;
   children: ReactNode;
   customSummaryClass: string;
+  index: number;
 }
 
 const AccordionComponent: FC<AccordionComponentPropsInterface> = ({
   summary,
   children,
   customSummaryClass,
+  index,
 }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Accordion defaultExpanded={true}>
+      <Accordion
+        classes={{ root: index % 2 === 0 ? classes.topRounded : classes.bottomRounded }}
+        square
+        defaultExpanded={true}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
-          classes={{ content: customSummaryClass }}
+          classes={{ content: `${customSummaryClass}`, root: ` ${classes.content}` }}
         >
           {summary}
         </AccordionSummary>

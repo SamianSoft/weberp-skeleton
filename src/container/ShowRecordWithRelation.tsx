@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme: CustomTheme) => ({
 
   relationItem: {
     width: '100%',
+    marginTop: 5,
   },
 
   tabParent: {
@@ -90,7 +91,7 @@ const useStyles = makeStyles((theme: CustomTheme) => ({
   groupContainer: {
     display: 'flex',
     flexDirection: 'column',
-    marginTop: 10,
+    marginTop: 5,
     border: `1px solid ${theme.palette.divider}`,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.grey[50],
@@ -298,9 +299,10 @@ const ShowRecordWithRelation = props => {
               >
                 {tab.groupList &&
                   tab.groupList.length &&
-                  tab.groupList.map((group: GroupInterface) => (
+                  tab.groupList.map((group: GroupInterface, index: number) => (
                     <div key={group.id} className={classes.groupContainer}>
                       <AccordionComponent
+                        index={index}
                         customSummaryClass=""
                         summary={
                           <Typography variant="body2">
@@ -364,7 +366,7 @@ const ShowRecordWithRelation = props => {
                     </div>
                   ))}
                 {tab.tableRelationList &&
-                  tab.tableRelationList.map((item: RelationListItemInterface) => {
+                  tab.tableRelationList.map((item: RelationListItemInterface, index: number) => {
                     const relationResource = `${item.moduleName}/${item.moduleTableName}`;
                     const relationPath = `${item.moduleName}/${item.moduleTableName}/${item.childFieldName}`;
                     const relationMetaData = getMeta(relationResource);
@@ -398,6 +400,7 @@ const ShowRecordWithRelation = props => {
                           {...relationPermission}
                           type="simple"
                           relation={item}
+                          index={index}
                           childFieldName={item.childFieldName}
                           relationResource={relationResource}
                           relationPath={relationPath}

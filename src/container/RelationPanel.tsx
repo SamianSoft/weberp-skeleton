@@ -56,7 +56,6 @@ const RelationPanel: FC<RelationPanelType> = props => {
     match,
     childFieldName,
   } = props;
-  console.log('🚀 ~ file: RelationPanel.tsx ~ line 69 ~ childFieldName', childFieldName);
 
   const { moduleTableTitle, translatedTitle, title, id: relationId, reportId } = relation;
   const isReport = !!reportId;

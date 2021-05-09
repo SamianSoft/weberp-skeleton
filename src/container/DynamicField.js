@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     height: '100%',
     alignItems: 'center',
+    padding: '0 16px',
   },
   inputField: {
     width: '100%',

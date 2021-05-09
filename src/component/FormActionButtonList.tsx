@@ -66,7 +66,6 @@ const useStyles = makeStyles((theme: CustomTheme) => ({
 
   dumbButton: {
     margin: '0 5px',
-
   },
 
   grow: {
@@ -77,11 +76,18 @@ const useStyles = makeStyles((theme: CustomTheme) => ({
     padding: 5,
     margin: '0 6px',
   },
+  cancelButton: {
+    color: theme.palette.primary.appPrimaryDisableIconColor,
+  },
 }));
 
 const DumbButton = (props: DumbButtonType) => {
   const { onClick, children } = props;
-  return <Button onClick={onClick}>{children}</Button>;
+  return (
+    <Button {...props} onClick={onClick}>
+      {children}
+    </Button>
+  );
 };
 
 const ProcessLineChangeButton = (props: ProcessLineChangeButtonType) => {
@@ -236,7 +242,7 @@ const FormActionButtonList = (props: FormActionButtonListType) => {
           />
         ))}
       <DumbButton
-        classes={classes}
+        classes={{ root: classes.cancelButton }}
         onClick={handleDumbBtnClick}
         data-test-form-cancel-button="true"
       >

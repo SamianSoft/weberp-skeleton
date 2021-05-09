@@ -12,6 +12,9 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.secondary.main,
     backgroundColor: theme.palette.secondary.main + '12',
   },
+  root: {
+    minWidth: 100,
+  },
 }));
 
 const TabParent = props => {
@@ -102,7 +105,7 @@ const TabParent = props => {
               label={tab.props.label}
               onClick={onTabClick(tab, index)}
               value={index}
-              classes={{ selected: classes.selected }}
+              classes={{ root: classes.root, selected: classes.selected }}
               className={isDirtyTab ? classes.validationError : null}
               data-test-has-error={isDirtyTab}
             />

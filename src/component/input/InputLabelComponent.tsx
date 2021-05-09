@@ -9,8 +9,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '100%',
   },
   inputLabel: {
-    width: '60px',
-    marginRight: '50px',
+    fontSize: theme.typography.subtitle2.fontSize,
+    maxWidth: '28px',
+    margin: '0 53px 0px 16px',
   },
 }));
 

@@ -267,7 +267,8 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
                 ))
               : null}
           </div>
-          {isMore || value.length >= limitCount ? (
+          {(isMore || value.length >= limitCount) &&
+          state.selectedOptions.slice(limitCount).length ? (
             <Tooltip
               classes={{ tooltip: classes.rootTooltip }}
               title={
@@ -287,7 +288,7 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
             fullWidth
             inputProps={{
               ...getInputProps(),
-              placeholder: translate('form.multiPlaceHolder'),
+              placeholder: value.length ? '' : translate('form.multiPlaceHolder'),
               value: '',
               onClick: handleOnClick,
               onBlur: () => {},

@@ -11,6 +11,7 @@ interface RelationType {
 }
 export interface RelationPanelType {
   relationPath: string;
+  index: number;
   basePath: string;
   relationResource: string;
   currentUrl: string | null;
@@ -63,6 +64,7 @@ export interface RelationLoadingType {
 
 export interface TableRelationType {
   type: string;
+  index: number;
   relationData: { TotalCount: number; Data: never[] };
   locale: string;
   hasEdit: boolean;

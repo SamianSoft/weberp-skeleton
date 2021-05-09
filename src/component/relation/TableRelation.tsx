@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import {  makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import LazyReferenceManyField from '../../container/admin/LazyReferenceManyField';
 import RelationActionBar from './RelationActionBar';
 import { isEmptyObject } from '../../helper/DataHelper';
@@ -68,6 +68,7 @@ const TableRelation: FC<TableRelationType> = props => {
     dynamicRelation,
     relation,
     relationTitle,
+    index,
     ...rest
   } = props;
 
@@ -82,10 +83,9 @@ const TableRelation: FC<TableRelationType> = props => {
     }
   }, [relationMetaData]);
 
-  console.log('TableRelation.tsx:83 >> relationMetaData', { relationMetaData });
-
   return (
     <AccordionComponent
+      index={index}
       customSummaryClass={classes.summaryClass}
       summary={
         <>
