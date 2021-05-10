@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     padding: 8,
     border: '1px solid ' + theme.palette.common.black,
-    zIndex: 1,
+    zIndex: 100,
     borderTop: 'none',
     position: 'absolute',
     borderRadius: '0 0 4px 4px !important',
@@ -127,15 +127,6 @@ const icon = <CheckBoxOutlineBlankIcon style={{ borderRadius: 4 }} fontSize="sma
 const checkedIcon = (
   <div style={{ backgroundColor: '#90A3B5', width: 16, height: 16, borderRadius: 4 }} />
 );
-
-const useFocus = () => {
-  const htmlElRef = useRef<HTMLInputElement>(null);
-  const setFocus = () => {
-    htmlElRef.current && htmlElRef.current.focus();
-  };
-
-  return [htmlElRef, setFocus];
-};
 interface InputProps {
   onBlur: Function;
   onFocus: Function;
@@ -178,7 +169,7 @@ interface SelectOptionsInterface {
 }
 
 const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
-  const { field, limitTag = 2, disabled = false, keyValue = 'title', ...rest } = props;
+  const { field, limitTag = 12, disabled = false, keyValue = 'title', ...rest } = props;
   const [state, setState] = useState<SelectOptionsInterface>({ selectedOptions: [] });
   useEffect(() => {
     setState({ selectedOptions: field.defaultValue || [] });

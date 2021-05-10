@@ -103,7 +103,7 @@ const RelationPanel: FC<RelationPanelType> = props => {
   useEffect(() => {
     const scrollToTarget = getParamFromUrl(location.search, KEY_SCROLL_TO);
     if (childFieldName === scrollToTarget && element && element.current) {
-      element.current.scrollIntoView();
+      element.current.scrollIntoView({ behavior: 'smooth' });
       history.replace({
         search: '',
       });

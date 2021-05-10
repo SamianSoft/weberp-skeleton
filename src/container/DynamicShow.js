@@ -15,6 +15,7 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
+    marginTop: 24,
   },
 
   showCard: {

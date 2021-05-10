@@ -1727,10 +1727,7 @@
           "simple": "string",
           "sql": "varchar(max)"
         },
-        "defaultValue": [{"title": "test", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}},
-          {"title": "test3", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}},
-          {"title": "test4", "translatedTitle": {"fa": "تست", "en": "test", "ar": "test"}}
-        ],
+        "defaultValue": [],
         "defaultValueGlobalParameter": null,
         "disabled": false,
         "dropdown": {

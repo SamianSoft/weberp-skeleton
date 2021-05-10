@@ -1,5 +1,5 @@
 import { AppBar, Grid, Icon, makeStyles } from '@material-ui/core';
-import React from 'react';
+import React, { FC } from 'react';
 import { useTranslate, Button as ReactAdminButton } from 'react-admin';
 import { linkToRecord } from 'ra-core';
 import { Link } from 'react-router-dom';
@@ -13,8 +13,15 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
   },
 }));
+interface RelationActionInterface {
+  list: object[];
+  basePath: object;
+  record: object;
+  isType: string;
+}
 
-export default function RelationActionButtonsComponent(props) {
+
+const RelationActionButtonsComponent: FC<RelationActionInterface> = props => {
   const { list, basePath, record, isType, ...rest } = props;
   const classes = useStyles();
   /**
@@ -38,9 +45,9 @@ export default function RelationActionButtonsComponent(props) {
           <ReactAdminButton
             className={classes.buttonLink}
             component={Link}
-            to={`${linkToRecord(basePath, record && record.id, isType)}?scrollTo=${item.id}`}
+            to={`${linkToRecord(basePath, record && record['id'], isType)}?scrollTo=${item['id']}`}
             onClick={stopPropagation}
-            label={item.title}
+            label={item['title']}
             {...rest}
           ></ReactAdminButton>
         </Grid>
@@ -48,4 +55,6 @@ export default function RelationActionButtonsComponent(props) {
     </Grid>,
     document.getElementById('app-bar-portal'),
   );
-}
+};
+
+export default RelationActionButtonsComponent;

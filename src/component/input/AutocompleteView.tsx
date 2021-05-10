@@ -1,10 +1,9 @@
 /* eslint-disable no-use-before-define */
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState, createRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { ButtonBase, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { ButtonBase, Tooltip, Typography } from '@material-ui/core';
 import { FieldType } from '../../helper/Types';
 import InputLabelComponent from './InputLabelComponent';
-import ClearIcon from '@material-ui/icons/Clear';
 import { themeParams } from '../../core/themeProvider';
 const useStyles = makeStyles(theme => ({
   rootDropdown: {
@@ -23,6 +22,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
+    height: '100%',
     width: '100%',
     border: '1px solid ' + themeParams.palette.primary.appPrimaryDividerColor,
     borderRadius: 4,
@@ -58,6 +58,7 @@ const useStyles = makeStyles(theme => ({
   clearIcon: {
     color: theme.palette.common.white,
     width: 16,
+    cursor: 'pointer',
     height: 16,
     fill: 'currentColor',
     background: '#666666',
@@ -112,37 +113,66 @@ interface AutocompleteInputInterface {
   customError?: string;
   keyValue?: string;
 }
+interface SelectOptionsInterface {
+  selectedOptions: object[];
+}
 
 const AutocompleteView: FC<AutocompleteInputInterface> = props => {
-  const { field, limitTag = 2, disabled = false, keyValue = 'title', ...rest } = props;
+  const { field, limitTag = 12, disabled = false, keyValue = 'title', ...rest } = props;
+  const [state, setState] = useState<SelectOptionsInterface>({ selectedOptions: [] });
+  useEffect(() => {
+    setState({ selectedOptions: field.defaultValue || [] });
+  }, []);
   const classes = useStyles();
+  const [isMore, setIsMore] = useState(false);
+  const [limitCount, setLimitCount] = useState(0);
+  const refTags = createRef<HTMLInputElement>();
+  const refRoot = createRef<HTMLInputElement>();
+
+  useEffect(() => {
+    setLimitCount(limitTag);
+  }, [limitTag]);
+
+  useEffect(() => {
+    if (refTags.current && refRoot.current) {
+      const tagsWidth = refTags.current.offsetWidth;
+      const rootWidth = refRoot.current.offsetWidth;
+      const division = tagsWidth / rootWidth;
+      setIsMore(division * 100 >= 75);
+    }
+  }, [refTags, refRoot]);
+  useEffect(() => {
+    if (isMore) {
+      setLimitCount(field.defaultValue.length);
+    } else {
+      setLimitCount(limitTag);
+    }
+  }, [isMore]);
 
   return (
     <InputLabelComponent label={rest.label}>
-      <div className={classes.rootDropdown}>
+      <div className={classes.rootDropdown} ref={refRoot}>
         <div className={`${classes.root}`}>
-          <div className={classes.rootTags}>
+          <div className={classes.rootTags} ref={refTags}>
             {field.defaultValue.length
-              ? field.defaultValue.slice(0, limitTag).map((item, index) => (
+              ? field.defaultValue.slice(0, limitCount).map((item, index) => (
                   <ButtonBase
                     disabled={disabled}
                     component="div"
                     classes={{ root: classes.button }}
                   >
                     <Typography>{item[keyValue]}</Typography>
-                    <IconButton className={classes.padding} disabled={true}>
-                      <ClearIcon className={classes.clearIcon} />
-                    </IconButton>
                   </ButtonBase>
                 ))
               : null}
           </div>
-          {field.defaultValue.slice(limitTag).length ? (
+          {(isMore || field.defaultValue.length >= limitCount) &&
+          state.selectedOptions.slice(limitCount).length ? (
             <Tooltip
               classes={{ tooltip: classes.rootTooltip }}
               title={
                 <>
-                  {field.defaultValue.slice(limitTag).map(item => (
+                  {state.selectedOptions.slice(limitCount).map(item => (
                     <p data-test-input-name="popover-more-test">{item[keyValue]}</p>
                   ))}
                 </>
