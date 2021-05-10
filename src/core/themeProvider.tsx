@@ -52,6 +52,7 @@ export const themeParams = {
       appPrimaryDividerColor: 'rgba(0, 0, 0, 0.12)',
       appPrimaryIconColor: 'rgba(0, 0, 0, 0.7)' /* original alpha in material: 54% */,
       appPrimaryDisableIconColor: 'rgba(0, 0, 0, 0.38)',
+      gradientAppBar: 'linear-gradient(180deg, #26394B 0%, #495D70 99.99%)',
     },
     secondary: {
       main: '#2bbdb9',

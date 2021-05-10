@@ -3,11 +3,11 @@ import React from 'react';
 import { useTranslate, Button as ReactAdminButton } from 'react-admin';
 import { linkToRecord } from 'ra-core';
 import { Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 
 const useStyles = makeStyles(theme => ({
   container: {
     padding: '8px 16px',
-    backgroundColor: theme.palette.primary.main,
   },
   buttonLink: {
     color: 'white',
@@ -25,7 +25,7 @@ export default function RelationActionButtonsComponent(props) {
    */
   const stopPropagation = event => event.stopPropagation();
   const translate = useTranslate();
-  return (
+  return ReactDOM.createPortal(
     <Grid
       container
       className={classes.container}
@@ -45,6 +45,7 @@ export default function RelationActionButtonsComponent(props) {
           ></ReactAdminButton>
         </Grid>
       ))}
-    </Grid>
+    </Grid>,
+    document.getElementById('app-bar-portal'),
   );
 }

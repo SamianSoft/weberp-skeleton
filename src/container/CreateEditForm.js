@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
+    marginTop: 46,
     backgroundColor: theme.palette.primary.appPrimaryBackgroundColor,
   },
 

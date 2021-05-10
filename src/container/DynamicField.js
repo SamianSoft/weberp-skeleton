@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { getTypeByField } from '../helper/NewInputHelper';
-import AutocompleteInput from '../component/input/AutocompleteInput';
 import InputLabelComponent from '../component/input/InputLabelComponent';
+import AutocompleteView from '../component/input/AutocompleteView';
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -110,7 +110,7 @@ const DynamicField = props => {
 
   switch (getTypeByField(field)) {
     case 'stringMultiSelectDropBase': {
-      fieldComponent = <AutocompleteInput field={field} {...rest} {...commonProps} disabled />;
+      fieldComponent = <AutocompleteView field={field} {...rest} {...commonProps} disabled />;
       break;
     }
     default: {

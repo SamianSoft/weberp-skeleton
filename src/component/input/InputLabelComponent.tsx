@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   inputLabel: {
     fontSize: theme.typography.subtitle2.fontSize,
-    maxWidth: '28px',
-    margin: '0 53px 0px 16px',
+    maxWidth: '30px',
+    margin: '0 75px 0px 16px',
   },
 }));
 

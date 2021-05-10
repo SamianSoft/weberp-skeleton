@@ -148,6 +148,9 @@ const styles = theme => ({
   loading: {
     margin: 8,
   },
+  appBar: {
+    background: themeParams.palette.primary.gradientAppBar,
+  },
 });
 
 const AppLayout = props => {
@@ -209,24 +212,26 @@ const AppLayout = props => {
       <div className={classes.root}>
         <MetaResourceRegisterer />
         <CssBaseline />
-        <AppBar position="fixed" className={appBarClasses(theme, classes)}>
-          <Toolbar className={classes.mainHeader}>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={toggleMenuDrawer}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <div color="inherit" className={classes.appBarTitle} id="react-admin-title" />
-            <div color="inherit" id="reactAdminHeaderButtonContainer" />
-            <AppBarBackButton />
-            {width !== 'xs' && (
-              <LoadingIndicator data-test-loading-bar className={classes.loading} />
-            )}
-            {width !== 'xs' ? logout : null}
-          </Toolbar>
+        <AppBar position="fixed" className={`${appBarClasses(theme, classes)} ${classes.appBar}`}>
+          <div id="app-bar-portal">
+            <Toolbar className={classes.mainHeader}>
+              <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={toggleMenuDrawer}
+                className={classes.menuButton}
+              >
+                <MenuIcon />
+              </IconButton>
+              <div color="inherit" className={classes.appBarTitle} id="react-admin-title" />
+              <div color="inherit" id="reactAdminHeaderButtonContainer" />
+              <AppBarBackButton />
+              {width !== 'xs' && (
+                <LoadingIndicator data-test-loading-bar className={classes.loading} />
+              )}
+              {width !== 'xs' ? logout : null}
+            </Toolbar>
+          </div>
         </AppBar>
         <div className={classes.container}>
           <nav className={isMenuOpen ? classes.drawer : classes.drawerClose}>
