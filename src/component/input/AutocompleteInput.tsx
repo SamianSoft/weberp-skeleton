@@ -1,7 +1,4 @@
 /* eslint-disable no-use-before-define */
-import React, { FC, useEffect, useRef, useState, createRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import {
   ButtonBase,
   Checkbox,
@@ -12,15 +9,23 @@ import {
   Tooltip,
   Typography,
 } from '@material-ui/core';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import { FieldType } from '../../helper/Types';
-import InputLabelComponent from './InputLabelComponent';
-import { useTranslate } from 'react-admin';
-import useAutocomplete from '@material-ui/lab/useAutocomplete';
-import ClearIcon from '@material-ui/icons/Clear';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
+import useAutocomplete from '@material-ui/lab/useAutocomplete';
+import lodashDebounce from 'lodash/debounce';
+import React, { createRef, FC, useEffect, useState } from 'react';
+import { useTranslate } from 'react-admin';
+import { connect } from 'react-redux';
+import { triggerDropdownFetchData } from '../../helper/DropdownHelper';
+import { FieldType } from '../../helper/Types';
+import { findOneAction } from '../../redux/dropdown/action';
+import InputLabelComponent from './InputLabelComponent';
+
 const useStyles = makeStyles(theme => ({
   rootDropdown: {
     width: '100%',
@@ -162,16 +167,17 @@ interface AutocompleteInputInterface {
   field: FieldType;
   visibleClass: string;
   customError?: string;
-  keyValue?: string;
+  dropdownFetched: object;
 }
 interface SelectOptionsInterface {
   selectedOptions: object[];
 }
 
 const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
-  const { field, limitTag = 12, disabled = false, keyValue = 'title', ...rest } = props;
+  const { field, limitTag = 12, disabled = false, dropdownFetched, ...rest } = props;
   const [state, setState] = useState<SelectOptionsInterface>({ selectedOptions: [] });
   useEffect(() => {
+    triggerDropdownFetchData({ dropdownMeta: field.dropdown, ...rest }, '', {});
     setState({ selectedOptions: field.defaultValue || [] });
   }, []);
   const classes = useStyles();
@@ -198,9 +204,10 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
     getListboxProps,
   } = useAutocomplete({
     id: 'use-autocomplete-demo',
-    options: field.dropdown.columns,
+    options: Object.values(dropdownFetched)[0] || [],
+    filterOptions: options => options,
     value: state.selectedOptions,
-    getOptionLabel: option => option[keyValue],
+    getOptionLabel: option => option[field.dropdown.displayMember],
     onChange: (e, newValue) => {
       setState({ selectedOptions: [...newValue] });
       rest.onChange(newValue);
@@ -230,6 +237,13 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
   const handleOnClickPopup = () => {
     getPopupIndicatorProps()['onClick']();
   };
+  const handleChangeSearch = lodashDebounce((event: React.ChangeEvent<HTMLInputElement>) => {
+    triggerDropdownFetchData(
+      { dropdownMeta: field.dropdown, ...rest },
+      getInputProps()['value'],
+      {},
+    );
+  }, 200);
 
   return (
     <InputLabelComponent label={rest.label}>
@@ -246,7 +260,7 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
                     component="div"
                     classes={{ root: classes.button }}
                   >
-                    <Typography>{item[keyValue]}</Typography>
+                    <Typography>{item[field.dropdown.displayMember]}</Typography>
                     <IconButton
                       className={classes.padding}
                       onClick={getTagProps({ index })['onDelete']}
@@ -265,7 +279,9 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
               title={
                 <>
                   {state.selectedOptions.slice(limitCount).map(item => (
-                    <p data-test-input-name="popover-more-test">{item[keyValue]}</p>
+                    <p data-test-input-name="popover-more-test">
+                      {item[field.dropdown.displayMember]}
+                    </p>
                   ))}
                 </>
               }
@@ -318,6 +334,7 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
           <Paper elevation={3} variant="outlined" className={classes.listbox}>
             <TextField
               data-test-input-name="auto-complete-input-box"
+              onChange={handleChangeSearch}
               inputProps={{
                 className: classes.paddingInput,
                 ...getInputProps(),
@@ -344,10 +361,16 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
                         icon={icon}
                         checkedIcon={checkedIcon}
                         checked={
-                          value.find(item => item[keyValue] === option[keyValue]) ? true : false
+                          value.find(
+                            item =>
+                              item[field.dropdown.displayMember] ===
+                              option[field.dropdown.displayMember],
+                          )
+                            ? true
+                            : false
                         }
                       />
-                      {option[keyValue]}
+                      {option[field.dropdown.displayMember]}
                     </li>
                   );
                 })
@@ -361,5 +384,12 @@ const AutocompleteInput: FC<AutocompleteInputInterface> = props => {
     </InputLabelComponent>
   );
 };
+const mapStateToProps = (state: { dropdown: object }) => ({
+  dropdownFetched: state.dropdown,
+});
 
-export default AutocompleteInput;
+const mapDispatchToProps = {
+  findDropdownData: findOneAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AutocompleteInput);

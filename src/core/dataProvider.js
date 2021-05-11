@@ -39,6 +39,7 @@ import dropbaseData from '../mock/dropbase-data.json';
 export const GET_META = 'GET_META';
 export const CUSTOM_UPDATE = 'CUSTOM_UPDATE';
 export const GET_DROPDOWN = 'GET_DROPDOWN';
+export const RUN_SERVICE = 'RUN_SERVICE';
 
 export const httpClient = axios.create();
 httpClient.defaults.timeout = 120000; // wait 120 seconds
