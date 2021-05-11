@@ -23,3 +23,17 @@ code {
 .displayNone {
   display: none !important;
 }
+
+
+/* semantic UI - dropdown override */
+.dropdown.icon::before {
+  color: white;
+  padding: 0 !important;
+  box-shadow: none;
+  background-color: none;
+}
+
+.ui.scrolling.dropdown .menu,
+.ui.dropdown .scrolling.menu {
+  max-height: 100px !important;
+}

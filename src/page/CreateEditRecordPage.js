@@ -24,6 +24,7 @@ const CreateEditRecordPage = props => {
   const resource = getResource();
   const isReport = resource.indexOf('report') === 0;
   const computeId = !isEmpty(id) ? id : lodashGet(props, 'match.params.id', null);
+  console.log({resource});
 
   return (
     <MetaProvider resourceName={resource}>

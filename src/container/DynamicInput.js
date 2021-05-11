@@ -21,6 +21,7 @@ import {
 import { getTypeByField, BOOLEAN_FIELD, DATE_FIELD } from '../helper/InputHelper';
 import { isEmpty, isEmptyObject, clone } from '../helper/DataHelper';
 import { getDropDownListFromState } from '../helper/MetaHelper';
+import Stage from '../component/Stage';
 
 const useStyles = makeStyles(theme => ({
   inputStyle: {
@@ -499,9 +500,26 @@ const DynamicInput = props => {
     inputProps.style = { width: `${field.widthPercent}%` };
   }
 
+  const [activeItem, setActiveItem] = useState(null);
+ 
+  const onItemClickHanlder = (item) => {
+    setActiveItem(item);
+  };
+
   let inputComponent;
 
   switch (getTypeByField(field)) {
+    case 'stage':
+      inputComponent = (
+        <Stage
+          data={field.values}
+          direction="rtl"
+          activeItem={activeItem}
+          onItemClick={onItemClickHanlder}
+          containerWidth={`${field.width}%`}
+        />
+      );
+      break;
     default:
       inputComponent = (
         <TextInput

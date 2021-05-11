@@ -43,8 +43,22 @@ export const getCodingPattern = (codingPattern, currentLevel) => {
   return splitted[currentLevel].length;
 };
 
+export const isActive = (key, activeItem) => {
+  if(activeItem)
+  return key ===  activeItem.key;
+  else return false;
+};
+
+
+export const isPassed = (item, activeItem) => {
+  if(activeItem) {
+    return item.priority <= activeItem.priority && item.tickWhenPass
+  } else return false;
+}
+
 export const getTypeByField = field => {
-  return TEXT_FIELD;
+  // return TEXT_FIELD;
+  return field.name
 };
 
 /**
