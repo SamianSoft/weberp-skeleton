@@ -1,4 +1,5 @@
 import viewPage from './viewPage/saga';
 import gridList from './gridList/saga';
+import dropdown from './dropdown/saga';
 
-export default [viewPage, gridList];
+export default [dropdown, viewPage, gridList];

@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios';
+import querystring from 'qs';
 import lodashGet from 'lodash/get';
-
 import { GET_LIST, GET_ONE, CREATE, UPDATE } from 'react-admin';
 
 import {
@@ -33,11 +33,12 @@ import metaOrderDetail from '../mock/meta-order-detail.json';
 import listOrder from '../mock/list-order.json';
 import oneOrder from '../mock/one-order.json';
 import oneOrderDetail from '../mock/one-order-detail.json';
+import dropbaseData from '../mock/dropbase-data.json';
 //
 
 export const GET_META = 'GET_META';
 export const CUSTOM_UPDATE = 'CUSTOM_UPDATE';
-export const RUN_SERVICE = 'RUN_SERVICE';
+export const GET_DROPDOWN = 'GET_DROPDOWN';
 
 export const httpClient = axios.create();
 httpClient.defaults.timeout = 120000; // wait 120 seconds
@@ -138,6 +139,26 @@ const checkResponseForOpenNewTab = response => {
   }
 };
 
+const prepareFilterFromObject = filterObject => {
+  const preparedListFilter = [];
+  for (const key in filterObject) {
+    if (preparedListFilter.length) {
+      preparedListFilter.push('and');
+    }
+
+    // if filter value is prepared
+    if (Array.isArray(filterObject[key])) {
+      preparedListFilter.push(filterObject[key]);
+    }
+    // if it's key=value , then prepare as array
+    else {
+      preparedListFilter.push(getFilterByValue(key, filterObject[key]));
+    }
+  }
+
+  return preparedListFilter;
+};
+
 const dataProvider = async (type, resource, params = {}) => {
   const { rawResponse = false, skipPrefix = false, queryParams = {} } = params;
 
@@ -162,6 +183,43 @@ const dataProvider = async (type, resource, params = {}) => {
   };
 
   switch (type) {
+    case GET_DROPDOWN:
+      const dropdownPerPage = lodashGet(params, 'pagination.perPage') || 10;
+      const dropdownPage = lodashGet(params, 'pagination.page') || 1;
+      const dropdownFilter =
+        params.filter && Object.keys(params.filter).length > 0
+          ? JSON.stringify(prepareFilterFromObject(params.filter))
+          : '';
+
+      const dropdownQueryParameters = querystring.stringify({
+        search: `${params.search}` || '',
+        parameters: params.parameters || '',
+        skip: (dropdownPage - 1) * dropdownPerPage,
+        takeCount: dropdownPerPage,
+        forceTreeLevel: params.forceTreeLevel ? 'true' : 'false',
+        filters: dropdownFilter,
+      });
+
+      const dropdownUrl = `${apiUrl}/${apiVersion}/${prefix}dropdown/${resource}?${dropdownQueryParameters}`;
+
+      const dropdownResponse = dropbaseData;
+      checkResponseAndPlayAudio(dropdownResponse.data);
+      checkResponseForOpenNewTab(dropdownResponse.data);
+      if (!isResponseOk(dropdownResponse)) {
+        throw getResponseMessage(dropdownResponse);
+      }
+
+      if (rawResponse) {
+        return dropdownResponse.data;
+      }
+
+      return {
+        result: arrayResultToObjectWithLowerCase(dropdownResponse.data.data),
+        total: dropdownResponse.data.totalCount,
+        userMessage: dropdownResponse.data.userMessage,
+        messageType: dropdownResponse.data.messageType,
+      };
+
     case GET_META:
       let metaResponse = {};
       if (resource === 'webtest/orderdetail') {
