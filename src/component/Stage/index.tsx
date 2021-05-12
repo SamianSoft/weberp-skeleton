@@ -15,8 +15,7 @@ import DropDown from './DropDown';
 import { CloseIcon } from './assets/icons/CloseIcon';
 import moment from 'moment';
 import { STAGE, StageProps } from './types';
-
-
+import { isActive, isPassed } from '../../helper/StageHelper';
 
 const Stage: FC<StageProps> = ({ data, direction, onItemClick, activeItem, containerWidth }) => {
   const [dropDownData, setDropDownData] = useState<STAGE[]>(data);
@@ -27,16 +26,12 @@ const Stage: FC<StageProps> = ({ data, direction, onItemClick, activeItem, conta
   const ref = useRef<HTMLInputElement>(null);
 
   //method
-  const scroll = (scrollOffset: any) => {
+  const onScroll = (scrollOffset: number) => {
     if (ref && ref.current) ref.current.scrollLeft += scrollOffset;
   };
 
-  const isActive = (key: any) => activeItem && key === activeItem.key;
-  const isPassed = (item: any) =>
-    activeItem && item.priority <= activeItem.priority && item.tickWhenPass;
-
   const onStageClickHandler = (item: any) => {
-    if (isOpen && isActive(item.key)) {
+    if (isOpen && isActive(item.key, activeItem)) {
       return;
     } else onItemClick(item);
     isOpen && setisOpen(false);
@@ -51,45 +46,50 @@ const Stage: FC<StageProps> = ({ data, direction, onItemClick, activeItem, conta
   const onSetNewDate = () => {
     newDate && setDate(newDate);
     setisEdit(false);
-  }
-
-
+  };
 
   return (
     <Wrapper dir={direction} width={containerWidth}>
       <ItemsSection>
         <ItemsContainer ref={ref}>
-          {data && data
-            .sort((a: any, b: any) => a.priority - b.priority)
-            .map((item: any) => (
-              <Item
-                onClick={() => onStageClickHandler(item)}
-                color={item.color ? item.color : 'red'}
-                dir={direction}
-                className={isActive(item.key) ? 'active' : isPassed(item) ? 'passed' : ''}
-              >
-                {isPassed(item) && <DoneIcon width={14} color="#fff" />}
-                <span style={{ textAlign: 'end', fontSize: '14px' }}>{item.title}</span>
-                {isActive(item.key) && (
-                  <DropDown
-                    direction={direction}
-                    data={dropDownData}
-                    isOpen={isOpen}
-                    isActive={isActive}
-                    onSearchHandler={onSearchHandler}
-                    onArrowClick={() => {
-                      setisOpen(!isOpen);
-                    }}
-                    onItemClick={onStageClickHandler}
-                  />
-                )}
-              </Item>
-            ))}
+          {data &&
+            data
+              .sort((a: any, b: any) => a.priority - b.priority)
+              .map((item: any) => (
+                <Item
+                  onClick={() => onStageClickHandler(item)}
+                  color={item.color ? item.color : 'red'}
+                  dir={direction}
+                  className={
+                    isActive(item.key, activeItem)
+                      ? 'active'
+                      : isPassed(item, activeItem)
+                      ? 'passed'
+                      : ''
+                  }
+                >
+                  {isPassed(item, activeItem) && <DoneIcon width={14} color="#fff" />}
+                  <span style={{ textAlign: 'end', fontSize: '14px' }}>{item.title}</span>
+                  {isActive(item.key, activeItem) && (
+                    <DropDown
+                      direction={direction}
+                      data={dropDownData}
+                      isOpen={isOpen}
+                      isActive={isActive}
+                      onSearchHandler={onSearchHandler}
+                      onArrowClick={() => {
+                        setisOpen(!isOpen);
+                      }}
+                      onItemClick={onStageClickHandler}
+                    />
+                  )}
+                </Item>
+              ))}
         </ItemsContainer>
 
         <Scroll>
           <button
-            onClick={() => scroll(1000)}
+            onClick={() => onScroll(1000)}
             style={{
               fontSize: '25px',
               cursor: 'pointer',
@@ -101,7 +101,7 @@ const Stage: FC<StageProps> = ({ data, direction, onItemClick, activeItem, conta
             {`<`}
           </button>
           <button
-            onClick={() => scroll(-1000)}
+            onClick={() => onScroll(-1000)}
             style={{
               fontSize: '25px',
               cursor: 'pointer',
