@@ -154,6 +154,9 @@ export default {
     giftCard: 'Gift card',
     customSale: 'Custom sale',
   },
+  stage: {
+    search: 'Search',
+  },
   todo: {
     thereIsNothingTapNewTaskToGetStarted: 'there is nothing. tap "New Task" to get started.',
     newTask: 'new task',

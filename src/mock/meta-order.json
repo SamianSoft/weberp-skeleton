@@ -770,7 +770,8 @@
           {"key": "test3", "title": "تست سوم", "priority": 2, "color": "#4CAF50", "tickWhenPass": true},
           {"key": "stage1", "title": "مرحله انتخاب", "priority": 3, "color": "#FFEB3B", "tickWhenPass": true},
           {"key": "stage2", "title": "انتخاب مراحل استيج", "priority": 4, "color": "#FFEB3B", "tickWhenPass": false},
-          {"key": "test4", "title": "مرحله بدون رنگ", "priority": 5, "color": "", "tickWhenPass": true}
+          {"key": "test4", "title": "مرحله بدون رنگ", "priority": 5, "color": "", "tickWhenPass": true},
+          {"key": "test5", "title": "مرحله نهایی", "priority": 6, "color": "", "tickWhenPass": true}
         ],
         "width": 100
       },

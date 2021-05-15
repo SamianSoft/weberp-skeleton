@@ -25,7 +25,7 @@ const Stage: FC<StageProps> = ({ data, direction, onItemClick, activeItem, conta
   const [newDate, setNewDate] = useState<any>(null);
   const ref = useRef<HTMLInputElement>(null);
 
-  //method
+ 
   const onScroll = (scrollOffset: number) => {
     if (ref && ref.current) ref.current.scrollLeft += scrollOffset;
   };
@@ -58,7 +58,7 @@ const Stage: FC<StageProps> = ({ data, direction, onItemClick, activeItem, conta
               .map((item: any) => (
                 <Item
                   onClick={() => onStageClickHandler(item)}
-                  color={item.color ? item.color : 'red'}
+                  color={item.color ? item.color : '#D3D3D3'}
                   dir={direction}
                   className={
                     isActive(item.key, activeItem)

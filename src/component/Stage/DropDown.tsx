@@ -4,6 +4,7 @@ import { Input, List } from "semantic-ui-react";
 import { ArrowDownIcon } from "./assets/icons/ArrowDown";
 import { DropDownWrapper } from "./stage-styles";
 import { DropDownProps, STAGE } from "./types";
+import { useTranslate } from 'react-admin';
 
 
 
@@ -17,6 +18,7 @@ const DropDown: FC<DropDownProps> = ({
   onItemClick,
   direction
 }) => {
+  const translate = useTranslate();
   return (
     <TetherComponent
       attachment="top center"
@@ -35,8 +37,9 @@ const DropDown: FC<DropDownProps> = ({
         isOpen && (
           <DropDownWrapper dir={direction} ref={inputReff}>
             <Input
+              iconPosition="left"
               icon="search"
-              placeholder="Search..."
+              placeholder={`${translate('stage.search')} ...`} 
               onChange={onSearchHandler}
             />
             <hr></hr>
@@ -73,3 +76,5 @@ const DropDown: FC<DropDownProps> = ({
 };
 
 export default DropDown;
+
+

@@ -6,6 +6,9 @@ export default {
     requestId: 'شناسه درخواست',
     copied: 'کپی شد',
   },
+  stage: {
+    search: 'جستجو',
+  },
   form: {
     thereIsNoReturnInTheFormula: 'در فرمول "return" وجود ندارد',
     thereIsNoRecordOrFormula: 'رکورد یا فرمول وجود ندارد',
